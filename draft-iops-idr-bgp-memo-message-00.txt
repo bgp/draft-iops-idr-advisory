@@ -50,14 +50,6 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-
-
-
-Snijders, et al.         Expires October 2, 2017                [Page 1]
-
-Internet-Draft                 BGP-4 MEMO                     March 2017
-
-
    (http://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
@@ -80,21 +72,21 @@ Internet-Draft                 BGP-4 MEMO                     March 2017
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Protocol Extensions . . . . . . . . . . . . . . . . . . . . .   3
-     2.1.  MEMO Capability . . . . . . . . . . . . . . . . . . . . .   3
-     2.2.  MEMO Message  . . . . . . . . . . . . . . . . . . . . . .   3
-       2.2.1.  MEMO Message Example  . . . . . . . . . . . . . . . .   3
-   3.  Operational Considerations  . . . . . . . . . . . . . . . . .   4
-     3.1.  CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION    4
-   4.  Error Handling  . . . . . . . . . . . . . . . . . . . . . . .   5
-   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .   6
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .   6
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
+   1.  Introduction
+   2.  Protocol Extensions
+     2.1.  MEMO Capability
+     2.2.  MEMO Message
+       2.2.1.  MEMO Message Example
+   3.  Operational Considerations
+     3.1.  CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION
+   4.  Error Handling
+   5.  IANA Considerations
+   6.  Security Considerations
+   7.  References
+     7.1.  Normative References
+     7.2.  Informative References
+   Appendix A.  Acknowledgements
+   Authors' Addresses
 
 1.  Introduction
 
@@ -103,16 +95,6 @@ Table of Contents
    specific to the BGP-4 session through which the MEMO is distributed.
    In concept this enhancement is similar to the dissemination of plan
    files [RFC1288], and not intended for real-time communication.
-
-
-
-
-
-
-Snijders, et al.         Expires October 2, 2017                [Page 2]
-
-Internet-Draft                 BGP-4 MEMO                     March 2017
-
 
 2.  Protocol Extensions
 
@@ -147,28 +129,6 @@ Internet-Draft                 BGP-4 MEMO                     March 2017
 2.2.1.  MEMO Message Example
 
    A MEMO message example:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Snijders, et al.         Expires October 2, 2017                [Page 3]
-
-Internet-Draft                 BGP-4 MEMO                     March 2017
-
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -208,23 +168,6 @@ Internet-Draft                 BGP-4 MEMO                     March 2017
        neighbor 10.0.0.2 next-hop-self
        neighbor 10.0.0.2 route-map set-nexthop out
    !
-
-
-
-
-
-
-
-
-
-
-
-
-
-Snijders, et al.         Expires October 2, 2017                [Page 4]
-
-Internet-Draft                 BGP-4 MEMO                     March 2017
-
 
                                  Router B
 
@@ -274,14 +217,6 @@ Internet-Draft                 BGP-4 MEMO                     March 2017
    subcodes" for error subcodes, under the "BGP Error Subcodes"
    subregistry under the "Border Gateway Protocol (BGP) Parameters"
    registry.  The Registration Procedure for this new registry is "First
-
-
-
-Snijders, et al.         Expires October 2, 2017                [Page 5]
-
-Internet-Draft                 BGP-4 MEMO                     March 2017
-
-
    Come First Served".  IANA is requested to assign value TBD3 (Invalid
    Message Length) in this new error subcode registry.
 
@@ -328,16 +263,6 @@ Appendix A.  Acknowledgements
    John Scudder for their work on "BGP OPERATIONAL Message" and its
    predecessor "BGP Advisory Message".
 
-
-
-
-
-
-Snijders, et al.         Expires October 2, 2017                [Page 6]
-
-Internet-Draft                 BGP-4 MEMO                     March 2017
-
-
 Authors' Addresses
 
    Job Snijders
@@ -363,30 +288,3 @@ Authors' Addresses
 
    Email: sharpd@cumulusnetworks.com
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Snijders, et al.         Expires October 2, 2017                [Page 7]
