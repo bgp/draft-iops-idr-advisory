@@ -154,7 +154,7 @@ router bgp 64496
   neighbor 10.0.0.2 memo "Service ID" "USID 89024294"
   address-family ipv4 unicast
     neighbor 10.0.0.2 next-hop-self
-    neighbor 10.0.0.2 route-map set-nexthop out
+    neighbor 10.0.0.2 route-map export-to-AS64497 out
 !
 ]]></artwork></figure>
 <figure align="center">
