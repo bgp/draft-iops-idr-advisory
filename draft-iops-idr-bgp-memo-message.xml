@@ -68,11 +68,11 @@
             </t>
         </abstract>
 
-    <note title="Requirements Language">
-        <t>
-            The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.
-        </t>
-    </note>
+        <note title="Requirements Language">
+            <t>
+                The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.
+            </t>
+        </note>
 
     </front>
 
@@ -143,7 +143,7 @@
         <section anchor="error" title="Error Handling">
             <t>
                 This document defines a new NOTIFICATION error code: "MEMO Message Error".
-                The following error subcode is defined as well: "Invalid Message Length".
+                The following new error subcode is defined as well: "Invalid Message Length".
             </t>
             <t>
                 The error handling specified in this section is applicable only when a BGP speaker has received the "Support for MEMO Message Capability" from a peer.
@@ -162,7 +162,12 @@
                 IANA is requested to assign value TBD2 (MEMO Message Error) in the "BGP Error (Notification) Codes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
             </t>
             <t>
-                IANA is requested to assign value TBD3 (Support for MEMO Message Capability) in the "Capability Codes" registry.
+                IANA is requested to create a new registry "MEMO Message Error subcodes" for error subcodes, under the "BGP Error Subcodes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
+                The Registration Procedure for this new registry is "First Come First Served".
+                IANA is requested to assign value TBD3 (Invalid Message Length) in this new error subcode registry.
+            </t>
+            <t>
+                IANA is requested to assign value TBD4 (Support for MEMO Message Capability) in the "Capability Codes" registry.
             </t>
         </section>
 
