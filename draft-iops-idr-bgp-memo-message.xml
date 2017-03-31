@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc comments="yes"?>
+<?rfc compact="yes"?>
+<?rfc inline="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc subcompact="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc tocindent="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc strict="yes"?>
+
+<rfc category="std"
+    docName="draft-iops-idr-bgp-memo-message-00"
+    ipr="pre5378Trust200902">
+    <front>
+        <title abbrev="BGP-4 MEMO">
+            The MEMO Message Type for BGP-4
+        </title>
+
+        <author fullname="Job Snijders" initials="J." surname="Snijders">
+            <organization abbrev="NTT">NTT Communications</organization>
+            <address>
+                <postal>
+                    <street>Theodorus Majofskistraat 100</street>
+                    <code>1065 SZ</code>
+                    <city>Amsterdam</city>
+                    <country>The Netherlands</country>
+                </postal>
+                <email>job@ntt.net</email>
+            </address>
+        </author>
+
+        <author fullname="Jakob Heitz" initials="J." surname="Heitz">
+            <organization>Cisco</organization>
+            <address>
+                <postal>
+                    <street>170 West Tasman Drive</street>
+                    <city>San Jose</city>
+                    <region>CA</region>
+                    <code>95054</code>
+                    <country>USA</country>
+                </postal>
+                <email>jheitz@cisco.com</email>
+            </address>
+        </author>
+
+        <author fullname="Donald Sharp" initials="D." surname="Sharp">
+            <organization abbrev="Cumulus">Cumulus Networks</organization>
+            <address>
+                <email>sharpd@cumulusnetworks.com</email>
+            </address>
+        </author>
+
+        <date />
+
+        <area>Routing</area>
+        <workgroup>IDR</workgroup>
+        <keyword>BGP</keyword>
+        <keyword>memo</keyword>
+        <keyword>message</keyword>
+
+        <abstract>
+            <t>
+                This document defines the BGP-4 MEMO Message and MEMO Capability to facilitate the exchange of session-specific human-oriented information between network operators.
+            </t>
+        </abstract>
+
+    <note title="Requirements Language">
+        <t>
+            The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.
+        </t>
+    </note>
+
+    </front>
+
+    <middle>
+        <section anchor="intro" title="Introduction">
+            <t>
+                This document defines the <xref target="RFC4271">BGP-4</xref> MEMO Message and MEMO Capability to facilitate the exchange of human-oriented information specific to the BGP-4 session through which the MEMO is distributed.
+                In concept this enhancement is similar to the dissemination of <xref target="RFC1288">plan files</xref>, and not intended for real-time communication.
+            </t>
+        </section>
+
+        <section anchor="protextensions" title="Protocol Extensions">
+            <t>
+                The BGP protocol extensions introduced in this document include the definition of a new BGP capability, named "MEMO Capability", and the specification of the MEMO message.
+            </t>
+            <section anchor="cap" title="MEMO Capability">
+                <t>
+                    The "Support for MEMO Message Capability" is a new <xref target="RFC5492">BGP capability</xref>.
+                    The Length field of this capability MUST be set to 1.
+					The Capability value MUST be set to the version of the MEMO message supported by the BGP speaker.
+					This document only defines MEMO version 1 messages.
+                </t>
+                <t>
+                    By advertising this capability to a peer, a BGP speaker conveys to the peer that the speaker supports receiving MEMO messages, indicates what version of the MEMO message it supports, and supports the related procedures described in this document. 
+                </t>
+            </section>
+            <section anchor="message" title="MEMO Message">
+                <t>
+                    A MEMO message is composed of one or more key-value pairs.
+                    A MEMO message MUST NOT contain more than 16 key-value pairs.
+                    Each key and each value field MUST be proceeded by a one octet Length field to indicate the length of the subsequent field.
+                    MEMO key fields have a REQUIRED maximum length of 32 octets.
+                    MEMO value fields have a REQUIRED maximum length of 128 octets.
+					To support international characters, both key and value fields MUST be encoded using UTF-8.
+					Fields are not NUL terminated.
+                </t>
+			<section title="MEMO Message Example">
+				<t>
+					A MEMO message example:
+<figure align="center"><artwork><![CDATA[
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Length:  9  | Key "noc email" |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Length: 11  | Value "noc@ntt.net" |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Length: 10  | Key "24/7 phone"  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Length: 15  | Value "+1 877 688-6625"     |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Length: 10  | Key: "Service ID" |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Length: 13  | Value: "USID 89024294"  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork></figure>
+</t>
+            </section>
+            </section>
+        </section>
+
+        <section anchor="ops" title="Operational Considerations">
+            <t>
+                TBD
+            </t>
+        </section>
+
+        <section anchor="error" title="Error Handling">
+            <t>
+                This document defines a new NOTIFICATION error code: "MEMO Message Error".
+                The following error subcode is defined as well: "Invalid Message Length".
+            </t>
+            <t>
+                The error handling specified in this section is applicable only when a BGP speaker has received the "Support for MEMO Message Capability" from a peer.
+            </t>
+            <t>
+                All errors detected while processing the MEMO message MUST be indicated by sending the NOTIFICATION message with the Error Code MEMO Message Error.
+                The error subcode elaborates on the specific nature of the error.
+            </t>
+        </section>
+
+        <section anchor="iana" title="IANA Considerations">
+            <t>
+                IANA is requested to assign value TBD1 (MEMO) in the "BGP Message Types" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
+            </t>
+            <t>
+                IANA is requested to assign value TBD2 (MEMO Message Error) in the "BGP Error (Notification) Codes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
+            </t>
+            <t>
+                IANA is requested to assign value TBD3 (Support for MEMO Message Capability) in the "Capability Codes" registry.
+            </t>
+        </section>
+
+        <section anchor="security" title="Security Considerations">
+            <t>
+                This document uses UTF-8 encoding for the MEMO message.
+                <xref target="UTR36">UNICODE TR36</xref> to learn about these
+            </t>                
+        </section>
+<!--
+        <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
+            <t>
+                This section records the status of known implementations of the
+                protocol defined by this specification at the time of posting
+                of this Internet-Draft, and is based on a proposal described in
+                RFC7942. The description of implementations in this section is
+                intended to assist the IETF in its decision processes in
+                progressing drafts to RFCs.  Please note that the listing of
+                any individual implementation here does not imply endorsement
+                by the IETF. Furthermore, no effort has been spent to verify
+                the information presented here that was supplied by IETF
+                contributors.  This is not intended as, and must not be
+                construed to be, a catalog of available implementations or
+                their features. Readers are advised to note that other
+                implementations may exist.
+           </t>
+           <t>
+               As of today these vendors have produced an implementation of  MEMO:
+               <list style="symbols">
+                   <t>you can be first!</t>
+               </list>
+           </t>
+       </section>
+-->
+ 
+    </middle>
+
+    <back>
+
+        <references title="Normative References">
+            <?rfc include="reference.RFC.2119"?>
+            <?rfc include="reference.RFC.4271"?>
+            <?rfc include="reference.RFC.5492"?>
+        </references>
+        <references title="Informative References">
+            <?rfc include="reference.RFC.1288"?>
+            <reference anchor="UTR36" target="http://unicode.org/reports/tr36/">
+                <front>
+                    <title>Unicode Security Considerations</title>
+                    <author initials="M." surname="Davis" fullname="Mark Davis"><organization/></author>
+                    <author initials="M." surname="Suignard" fullname="Michel Suignard"><organization/></author>
+                    <date year="2010" month="August" day="4"/>
+                </front>
+                <seriesInfo name="Unicode Technical Report" value="#36"/>
+            </reference>
+        </references>
+
+        <section anchor="acknowledgements" title="Acknowledgements">
+            <t>
+                The authors would like to gratefully acknowledge Tom Scholl, David Freedman, Richard A. Steenbergen, Rob Shakir, Robert Raszuk, and John Scudder for their work on "BGP OPERATIONAL Message" and its predecessor "BGP Advisory Message".
+            </t>
+        </section>
+    </back>
+
+</rfc>
