@@ -81,6 +81,7 @@
             <t>
                 This document defines the <xref target="RFC4271">BGP-4</xref> MEMO Message and MEMO Capability to facilitate the exchange of human-oriented information specific to the BGP-4 session through which the MEMO is distributed.
                 In concept this enhancement is similar to the dissemination of <xref target="RFC1288">plan files</xref>, and not intended for real-time communication.
+                The MEMO message is specifically meant to help bootstrap out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.
             </t>
         </section>
 
