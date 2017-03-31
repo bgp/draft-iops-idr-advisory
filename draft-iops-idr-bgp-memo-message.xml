@@ -108,7 +108,8 @@
                     MEMO key fields have a REQUIRED maximum length of 32 octets.
                     MEMO value fields have a REQUIRED maximum length of 128 octets.
 					To support international characters, both key and value fields MUST be encoded using UTF-8.
-					Fields are not NUL terminated.
+                    Fields are not NUL terminated.
+                    There is no significance to the order of key-value pairs.
                 </t>
 			<section title="MEMO Message Example">
 				<t>
