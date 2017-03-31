@@ -138,6 +138,47 @@
             <t>
                 TBD
             </t>
+            <section title="CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION">
+                <t>
+                    This section is not meant to drive UI design decisions, but rather as scaffold to further discussion.
+                </t>
+                <t>
+<figure align="center">
+<preamble>Router A</preamble><artwork><![CDATA[
+!
+router bgp 64496
+  bgp router-id 10.0.0.1
+  neighbor 10.0.0.2 remote-as 64497
+  neighbor 10.0.0.2 memo "noc email" "noc@ntt.net"
+  neighbor 10.0.0.2 memo "24/7 phone" "+1 877 688-6625"
+  neighbor 10.0.0.2 memo "Service ID" "USID 89024294"
+  address-family ipv4 unicast
+    neighbor 10.0.0.2 next-hop-self
+    neighbor 10.0.0.2 route-map set-nexthop out
+!
+]]></artwork></figure>
+<figure align="center">
+<preamble>Router B</preamble><artwork><![CDATA[
+RouterB# show bgp neighbor 10.0.0.2 memo
+  
+  Latest MEMO from 10.0.0.2 / AS 64496:
+   
+    noc email    :  noc@ntt.net
+    24/7 phone   :  +1 877 688-6625
+    Service ID   :  USID 89024294
+
+  Received: Fri 31 Mar 04:38:10 2017 UTC
+
+  MEMO Message statistics:
+
+                  Sent       Received
+  Memos              5             15
+
+RouterB#
+]]></artwork></figure>
+
+                </t>
+            </section>
         </section>
 
         <section anchor="error" title="Error Handling">
