@@ -213,7 +213,7 @@ Table of Contents
 
                                  Router B
 
-   RouterB# show bgp neighbor 10.0.0.2 memo
+   RouterB# show bgp neighbor 10.0.0.2 advisory
 
      Latest ADVISORY from 10.0.0.2 / AS 64496:
 
@@ -226,7 +226,7 @@ Table of Contents
      ADVISORY Message statistics:
 
                      Sent       Received
-     Memos              5             15
+                        5             15
 
    RouterB#
 
@@ -293,7 +293,7 @@ Table of Contents
 7.2.  Informative References
 
    [IEEE.1003.1_2013_EDITION]
-              IEEE, "Standard for Information TechnologyPortable
+              IEEE, "Standard for Information Technology Portable
               Operating System Interface (POSIX(R)) Base Specifications,
               Issue 7", IEEE 1003.1, 2013 Edition,
               DOI 10.1109/ieeestd.2013.6506091, April 2013,
