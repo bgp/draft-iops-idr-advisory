@@ -203,7 +203,7 @@ router bgp 64496
 ]]></artwork></figure>
 <figure align="center">
 <preamble>Router B</preamble><artwork><![CDATA[
-RouterB# show bgp neighbor 10.0.0.2 memo
+RouterB# show bgp neighbor 10.0.0.2 advisory
   
   Latest ADVISORY from 10.0.0.2 / AS 64496:
    
@@ -216,7 +216,7 @@ RouterB# show bgp neighbor 10.0.0.2 memo
   ADVISORY Message statistics:
 
                   Sent       Received
-  Memos              5             15
+                     5             15
 
 RouterB#
 ]]></artwork></figure>
