@@ -13,14 +13,14 @@
 <?rfc strict="yes"?>
 
 <rfc category="std"
-    docName="draft-iops-idr-bgp-memo-message-00"
+    docName="draft-iops-idr-bgp-advisory-message-00"
     ipr="pre5378Trust200902">
     <front>
-        <title abbrev="BGP-4 MEMO">
-            The MEMO Message Type for BGP-4
+        <title abbrev="BGP-4 ADVISORY">
+            The ADVISORY Message Type for BGP-4
         </title>
 
-        <author fullname="Job Snijders" initials="J." surname="Snijders">
+        <author fullname="Job Snijders" initials="J." surname="Snijders" role="editor">
             <organization abbrev="NTT">NTT Communications</organization>
             <address>
                 <postal>
@@ -30,6 +30,13 @@
                     <country>The Netherlands</country>
                 </postal>
                 <email>job@ntt.net</email>
+            </address>
+        </author>
+
+        <author fullname="David Freedman" initials="D." surname="Freedman">
+            <organization abbrev="Claranet">Claranet Limited</organization>
+            <address>
+                <email>david.freedman@uk.clara.net</email>
             </address>
         </author>
 
@@ -59,12 +66,12 @@
         <area>Routing</area>
         <workgroup>IDR</workgroup>
         <keyword>BGP</keyword>
-        <keyword>memo</keyword>
+        <keyword>advisory</keyword>
         <keyword>message</keyword>
 
         <abstract>
             <t>
-                This document defines the BGP-4 MEMO Message and MEMO Capability to facilitate the exchange of session-specific human-oriented information between network operators.
+                This document defines the BGP-4 ADVISORY Message and ADVISORY Capability to facilitate the exchange of session-specific human-oriented information between network operators.
             </t>
         </abstract>
 
@@ -79,41 +86,41 @@
     <middle>
         <section anchor="intro" title="Introduction">
             <t>
-                This document defines the <xref target="RFC4271">BGP-4</xref> MEMO Message and MEMO Capability to facilitate the exchange of human-oriented information specific to the BGP-4 session through which the MEMO is distributed.
+                This document defines the <xref target="RFC4271">BGP-4</xref> ADVISORY Message and ADVISORY Capability to facilitate the exchange of human-oriented information specific to the BGP-4 session through which the ADVISORY is distributed.
                 In concept this enhancement is similar to the dissemination of <xref target="RFC1288">plan files</xref>, and not intended for real-time communication.
-                The MEMO message is specifically meant to help bootstrap out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.
+                The ADVISORY message is specifically meant to help bootstrap out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.
             </t>
         </section>
 
         <section anchor="protextensions" title="Protocol Extensions">
             <t>
-                The BGP protocol extensions introduced in this document include the definition of a new BGP capability, named "MEMO Capability", and the specification of the MEMO message.
+                The BGP protocol extensions introduced in this document include the definition of a new BGP capability, named "ADVISORY Capability", and the specification of the ADVISORY message.
             </t>
-            <section anchor="cap" title="MEMO Capability">
+            <section anchor="cap" title="ADVISORY Capability">
                 <t>
-                    The "Support for MEMO Message Capability" is a new <xref target="RFC5492">BGP capability</xref>.
+                    The "Support for ADVISORY Message Capability" is a new <xref target="RFC5492">BGP capability</xref>.
                     The Length field of this capability MUST be set to 1.
-					The Capability value MUST be set to the version of the MEMO message supported by the BGP speaker.
-					This document only defines MEMO version 1 messages.
+					The Capability value MUST be set to the version of the ADVISORY message supported by the BGP speaker.
+					This document only defines ADVISORY version 1 messages.
                 </t>
                 <t>
-                    By advertising this capability to a peer, a BGP speaker conveys to the peer that the speaker supports receiving MEMO messages, indicates what version of the MEMO message it supports, and supports the related procedures described in this document. 
+                    By advertising this capability to a peer, a BGP speaker conveys to the peer that the speaker supports receiving ADVISORY messages, indicates what version of the ADVISORY message it supports, and supports the related procedures described in this document. 
                 </t>
             </section>
-            <section anchor="message" title="MEMO Message">
+            <section anchor="message" title="ADVISORY Message">
                 <t>
-                    A MEMO message is composed of one or more key-value pairs.
-                    A MEMO message MUST NOT contain more than 16 key-value pairs.
+                    A ADVISORY message is composed of one or more key-value pairs.
+                    A ADVISORY message MUST NOT contain more than 16 key-value pairs.
                     Each key and each value field MUST be proceeded by a one octet Length field to indicate the length of the subsequent field.
-                    MEMO key fields have a REQUIRED maximum length of 32 octets.
-                    MEMO value fields have a REQUIRED maximum length of 128 octets.
+                    ADVISORY key fields have a REQUIRED maximum length of 32 octets.
+                    ADVISORY value fields have a REQUIRED maximum length of 128 octets.
 					To support international characters, both key and value fields MUST be encoded using UTF-8.
                     Fields are not NUL terminated.
                     There is no significance to the order of key-value pairs.
                 </t>
-			<section title="MEMO Message Example">
+			<section title="ADVISORY Message Example">
 				<t>
-					A MEMO message example:
+					A ADVISORY message example:
 <figure align="center"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -151,9 +158,9 @@
 router bgp 64496
   bgp router-id 10.0.0.1
   neighbor 10.0.0.2 remote-as 64497
-  neighbor 10.0.0.2 memo "noc email" "noc@ntt.net"
-  neighbor 10.0.0.2 memo "24/7 phone" "+1 877 688-6625"
-  neighbor 10.0.0.2 memo "Service ID" "USID 89024294"
+  neighbor 10.0.0.2 note "noc email" "noc@ntt.net"
+  neighbor 10.0.0.2 note "24/7 phone" "+1 877 688-6625"
+  neighbor 10.0.0.2 note "Service ID" "USID 89024294"
   address-family ipv4 unicast
     neighbor 10.0.0.2 next-hop-self
     neighbor 10.0.0.2 route-map export-to-AS64497 out
@@ -163,7 +170,7 @@ router bgp 64496
 <preamble>Router B</preamble><artwork><![CDATA[
 RouterB# show bgp neighbor 10.0.0.2 memo
   
-  Latest MEMO from 10.0.0.2 / AS 64496:
+  Latest ADVISORY from 10.0.0.2 / AS 64496:
    
     noc email    :  noc@ntt.net
     24/7 phone   :  +1 877 688-6625
@@ -171,7 +178,7 @@ RouterB# show bgp neighbor 10.0.0.2 memo
 
   Received: Fri 31 Mar 04:38:10 2017 UTC
 
-  MEMO Message statistics:
+  ADVISORY Message statistics:
 
                   Sent       Received
   Memos              5             15
@@ -185,38 +192,38 @@ RouterB#
 
         <section anchor="error" title="Error Handling">
             <t>
-                This document defines a new NOTIFICATION error code: "MEMO Message Error".
+                This document defines a new NOTIFICATION error code: "ADVISORY Message Error".
                 The following new error subcode is defined as well: "Invalid Message Length".
             </t>
             <t>
-                The error handling specified in this section is applicable only when a BGP speaker has received the "Support for MEMO Message Capability" from a peer.
+                The error handling specified in this section is applicable only when a BGP speaker has received the "Support for ADVISORY Message Capability" from a peer.
             </t>
             <t>
-                All errors detected while processing the MEMO message MUST be indicated by sending the NOTIFICATION message with the Error Code MEMO Message Error.
+                All errors detected while processing the ADVISORY message MUST be indicated by sending the NOTIFICATION message with the Error Code ADVISORY Message Error.
                 The error subcode elaborates on the specific nature of the error.
             </t>
         </section>
 
         <section anchor="iana" title="IANA Considerations">
             <t>
-                IANA is requested to assign value TBD1 (MEMO) in the "BGP Message Types" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
+                IANA is requested to assign value TBD1 (ADVISORY) in the "BGP Message Types" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
             </t>
             <t>
-                IANA is requested to assign value TBD2 (MEMO Message Error) in the "BGP Error (Notification) Codes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
+                IANA is requested to assign value TBD2 (ADVISORY Message Error) in the "BGP Error (Notification) Codes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
             </t>
             <t>
-                IANA is requested to create a new registry "MEMO Message Error subcodes" for error subcodes, under the "BGP Error Subcodes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
+                IANA is requested to create a new registry "ADVISORY Message Error subcodes" for error subcodes, under the "BGP Error Subcodes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
                 The Registration Procedure for this new registry is "First Come First Served".
                 IANA is requested to assign value TBD3 (Invalid Message Length) in this new error subcode registry.
             </t>
             <t>
-                IANA is requested to assign value TBD4 (Support for MEMO Message Capability) in the "Capability Codes" registry.
+                IANA is requested to assign value TBD4 (Support for ADVISORY Message Capability) in the "Capability Codes" registry.
             </t>
         </section>
 
         <section anchor="security" title="Security Considerations">
             <t>
-                This document uses UTF-8 encoding for the MEMO message.
+                This document uses UTF-8 encoding for the ADVISORY message.
                 <xref target="UTR36">UNICODE TR36</xref> to learn about these
             </t>                
         </section>
@@ -238,7 +245,7 @@ RouterB#
                 implementations may exist.
            </t>
            <t>
-               As of today these vendors have produced an implementation of  MEMO:
+               As of today these vendors have produced an implementation of  ADVISORY:
                <list style="symbols">
                    <t>you can be first!</t>
                </list>
@@ -268,11 +275,40 @@ RouterB#
             </reference>
         </references>
 
-        <section anchor="acknowledgements" title="Acknowledgements">
-            <t>
-                The authors would like to gratefully acknowledge Tom Scholl, David Freedman, Richard A. Steenbergen, Rob Shakir, Robert Raszuk, and John Scudder for their work on "BGP OPERATIONAL Message" and its predecessor "BGP Advisory Message".
-            </t>
-        </section>
-    </back>
+    <section title="Contributors">
+        <t>
+            The following people contributed to this document through their work on draft-ietf-idr-advisory-00 (the original "BGP Advisory Message"):
+        </t>
+		<figure>
+<artwork>
+Tom Scholl
+Amazon Technologies, Inc.
+Email: tscholl@amazon.com
+</artwork>
+		</figure>
 
+		<figure>
+<artwork>
+Richard Turkbergen
+PacketFabric, Inc.
+Email: ras@e-gerbil.net
+</artwork>
+		</figure>
+
+		<figure>
+<artwork>
+John Scudder
+Juniper Networks
+Email: jgs@juniper.net
+</artwork>
+		</figure>
+
+	</section>
+
+	<section anchor="acknowledgements" title="Acknowledgements">
+		<t>
+			The authors would like to gratefully acknowledge ...
+		</t>
+	</section>
+</back>
 </rfc>
