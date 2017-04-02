@@ -125,18 +125,46 @@ Table of Contents
 
 2.2.  ADVISORY Message
 
-   A ADVISORY message is composed of one or more key-value pairs.  A
-   ADVISORY message MUST NOT contain more than 16 key-value pairs.  Each
-   key and each value field MUST be proceeded by a one octet Length
-   field to indicate the length of the subsequent field.  ADVISORY key
-   fields have a REQUIRED maximum length of 32 octets.  ADVISORY value
-   fields have a REQUIRED maximum length of 128 octets.  To support
-   international characters, both key and value fields MUST be encoded
-   using UTF-8.  Fields are not NUL terminated.  There is no
-   significance to the order of key-value pairs.
+   A ADVISORY message is composed of an optional Notice, and optionally
+   one or more Advise key-value pairs.  A ADVISORY message MUST NOT
+   contain more than 16 Advise key-value pairs.  Each key and each value
+   field MUST be proceeded by a one octet Length field to indicate the
+   length of the subsequent field.  Advise key fields have a REQUIRED
+   maximum length of 32 octets.  Advise value fields have a REQUIRED
+   maximum length of 128 octets.  To support international characters,
+   all string fields MUST be encoded using UTF-8.  Fields are not NUL
+   terminated.  There is no significance to the order of key-value
+   pairs.
 
    A zero-length ADVISORY message can be send to clear any Advisory
    information on the remote side.
+
+                               Packet format
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |  N Length: X  |              Expiration Timer                 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   \                                                               \
+   /            Notice Payload (max length X is 128)               /
+   \                                                               \
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |  A Length: Y  |   Key 1 (max length Y is 32)  |  A Length: Z  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   \                                                               \
+   /               Value 1 (max length Z is 128)                   /
+   \                                                               \
+   \                                                               \
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | A' Length: Y' |  Key 2 (max length Y' is 32)  | A' Length: Z' |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   \                                                               \
+   /               Value 2 (max length Z' is 128)                  /
+   \                                                               \
+   \                                                               \
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
 
 2.2.1.  ADVISORY Message Example
 
@@ -145,8 +173,8 @@ Table of Contents
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | N Length: 47  |    Expire after this amount of seconds:   0   |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | N Length: 34  |            Expiration Timer: 0                |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    | Notice Payload: "We are prepending announcements"           |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    | A Length:  9  | Key "noc email" |

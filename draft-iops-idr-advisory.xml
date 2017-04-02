@@ -121,8 +121,10 @@
                 <t>
                     A zero-length ADVISORY message can be send to clear any Advisory information on the remote side.
                 </t>
-
-<figure align="center"><artwork><![CDATA[
+                <t>
+                    <figure align="center">
+                        <preamble>Packet format</preamble>
+                        <artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
