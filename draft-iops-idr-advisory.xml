@@ -118,6 +118,10 @@
                     Fields are not NUL terminated.
                     There is no significance to the order of key-value pairs.
                 </t>
+                <t>
+                A zero-length ADVISORY message can be send to clear any Advisory information on the remote side.
+                </t>
+
 			<section title="ADVISORY Message Example">
 				<t>
 					An example ADVISORY message:
@@ -148,9 +152,6 @@
         </section>
 
         <section anchor="ops" title="Operational Considerations">
-            <t>
-                TBD
-            </t>
             <section title="CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION">
                 <t>
                     This section is not meant to drive UI design decisions, but rather as scaffold to further discussion.
@@ -207,7 +208,7 @@ RouterB#
                 The error subcode elaborates on the specific nature of the error.
             </t>
             <t>
-                A zero length ADVISORY message MUST NOT be considered malformed.
+                A zero-length ADVISORY message MUST NOT be considered malformed.
             </t>
         </section>
 

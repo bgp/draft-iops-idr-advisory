@@ -99,10 +99,10 @@ Table of Contents
    message is distributed.  In concept this enhancement is similar to
    the dissemination of plan files [RFC1288], or write(1)
    [IEEE.1003.1_2013_EDITION] and not intended for real-time interactive
-   communication.  The ADVISORY message is specifically meant to help
-   bootstrap out-of-band communication between operators by allowing
-   operators to signal key information over the in-band communication
-   channel that is the BGP session.
+   communication.  The ADVISORY message is specifically meant to aid
+   root cause analysis and bootstrapping out-of-band communication
+   between operators by allowing operators to signal key information
+   over the in-band communication channel that is the BGP session.
 
 2.  Protocol Extensions
 
@@ -135,29 +135,34 @@ Table of Contents
    using UTF-8.  Fields are not NUL terminated.  There is no
    significance to the order of key-value pairs.
 
+   A zero-length ADVISORY message can be send to clear any Advisory
+   information on the remote side.
+
 2.2.1.  ADVISORY Message Example
 
-   A ADVISORY message example:
+   An example ADVISORY message:
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Length:  9  | Key "noc email" |
+   | N Length: 47  |    Expire after this amount of seconds:   0   |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | Notice Payload: "We are prepending announcements"           |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | A Length:  9  | Key "noc email" |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Length: 11  | Value "noc@ntt.net" |
+   | A Length: 11  | Value "noc@ntt.net" |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Length: 10  | Key "24/7 phone"  |
+   | A Length: 10  | Key "24/7 phone"  |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Length: 15  | Value "+1 877 688-6625"     |
+   | A Length: 15  | Value "+1 877 688-6625"     |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Length: 10  | Key: "Service ID" |
+   | A Length: 10  | Key: "Service ID" |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Length: 13  | Value: "USID 89024294"  |
+   | A Length: 13  | Value: "USID 89024294"  |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 3.  Operational Considerations
-
-   TBD
 
 3.1.  CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION
 
@@ -211,6 +216,8 @@ Table of Contents
    indicated by sending the NOTIFICATION message with the Error Code
    ADVISORY Message Error.  The error subcode elaborates on the specific
    nature of the error.
+
+   A zero-length ADVISORY message MUST NOT be considered malformed.
 
 5.  IANA Considerations
 

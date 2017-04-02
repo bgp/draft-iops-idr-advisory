@@ -500,7 +500,7 @@
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#intro" id="intro">Introduction</a></h1>
-<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and ADVISORY Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is distributed.  In concept this enhancement is similar to the dissemination of <a href="#RFC1288">plan files</a> <cite title="NONE">[RFC1288]</cite>, or <a href="#IEEE.1003.1_2013_EDITION">write(1)</a> <cite title="NONE">[IEEE.1003.1_2013_EDITION]</cite> and not intended for real-time interactive communication.  The ADVISORY message is specifically meant to help bootstrap out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.  </p>
+<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and ADVISORY Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is distributed.  In concept this enhancement is similar to the dissemination of <a href="#RFC1288">plan files</a> <cite title="NONE">[RFC1288]</cite>, or <a href="#IEEE.1003.1_2013_EDITION">write(1)</a> <cite title="NONE">[IEEE.1003.1_2013_EDITION]</cite> and not intended for real-time interactive communication.  The ADVISORY message is specifically meant to aid root cause analysis and bootstrapping out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.  </p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#protextensions" id="protextensions">Protocol Extensions</a></h1>
 <p id="rfc.section.2.p.1">The BGP protocol extensions introduced in this document include the definition of a new BGP capability, named "ADVISORY Capability", and the specification of the ADVISORY message.  </p>
 <h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#cap" id="cap">ADVISORY Capability</a></h1>
@@ -508,27 +508,31 @@
 <p id="rfc.section.2.1.p.2">By advertising this capability to a peer, a BGP speaker conveys to the peer that the speaker supports receiving ADVISORY messages, indicates what version of the ADVISORY message it supports, and supports the related procedures described in this document.  </p>
 <h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> <a href="#message" id="message">ADVISORY Message</a></h1>
 <p id="rfc.section.2.2.p.1">A ADVISORY message is composed of one or more key-value pairs.  A ADVISORY message MUST NOT contain more than 16 key-value pairs.  Each key and each value field MUST be proceeded by a one octet Length field to indicate the length of the subsequent field.  ADVISORY key fields have a REQUIRED maximum length of 32 octets.  ADVISORY value fields have a REQUIRED maximum length of 128 octets.  To support international characters, both key and value fields MUST be encoded using UTF-8.  Fields are not NUL terminated.  There is no significance to the order of key-value pairs.  </p>
+<p id="rfc.section.2.2.p.2">A zero-length ADVISORY message can be send to clear any Advisory information on the remote side.  </p>
 <h1 id="rfc.section.2.2.1"><a href="#rfc.section.2.2.1">2.2.1.</a> ADVISORY Message Example</h1>
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length:  9  | Key "noc email" |
+| N Length: 47  |    Expire after this amount of seconds:   0   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Notice Payload: "We are prepending announcements"           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| A Length:  9  | Key "noc email" |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 11  | Value "noc@ntt.net" |
+| A Length: 11  | Value "noc@ntt.net" |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 10  | Key "24/7 phone"  |
+| A Length: 10  | Key "24/7 phone"  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 15  | Value "+1 877 688-6625"     |
+| A Length: 15  | Value "+1 877 688-6625"     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 10  | Key: "Service ID" |
+| A Length: 10  | Key: "Service ID" |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 13  | Value: "USID 89024294"  |
+| A Length: 13  | Value: "USID 89024294"  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
-<p id="rfc.section.2.2.1.p.1">A ADVISORY message example: </p>
+<p id="rfc.section.2.2.1.p.1">An example ADVISORY message: </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#ops" id="ops">Operational Considerations</a></h1>
-<p id="rfc.section.3.p.1">TBD </p>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION</h1>
 <p id="rfc.section.3.1.p.1">This section is not meant to drive UI design decisions, but rather as scaffold to further discussion.  </p>
 <p/>
@@ -570,6 +574,7 @@ RouterB#
 <p id="rfc.section.4.p.1">This document defines a new NOTIFICATION error code: "ADVISORY Message Error".  The following new error subcode is defined as well: "Invalid Message Length".  </p>
 <p id="rfc.section.4.p.2">The error handling specified in this section is applicable only when a BGP speaker has received the "Support for ADVISORY Message Capability" from a peer.  </p>
 <p id="rfc.section.4.p.3">All errors detected while processing the ADVISORY message MUST be indicated by sending the NOTIFICATION message with the Error Code ADVISORY Message Error.  The error subcode elaborates on the specific nature of the error.  </p>
+<p id="rfc.section.4.p.4">A zero-length ADVISORY message MUST NOT be considered malformed.  </p>
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#iana" id="iana">IANA Considerations</a></h1>
 <p id="rfc.section.5.p.1">IANA is requested to assign value TBD1 (ADVISORY) in the "BGP Message Types" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.  </p>
 <p id="rfc.section.5.p.2">IANA is requested to assign value TBD2 (ADVISORY Message Error) in the "BGP Error (Notification) Codes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.  </p>
