@@ -16,8 +16,8 @@
     docName="draft-iops-idr-bgp-advisory-message-00"
     ipr="pre5378Trust200902">
     <front>
-        <title abbrev="BGP-4 ADVISORY">
-            The ADVISORY Message Type for BGP-4
+        <title>
+            BGP ADVISORY Message
         </title>
 
         <author fullname="Job Snijders" initials="J." surname="Snijders" role="editor">
@@ -86,9 +86,9 @@
     <middle>
         <section anchor="intro" title="Introduction">
             <t>
-                This document defines the <xref target="RFC4271">BGP-4</xref> ADVISORY Message and ADVISORY Capability to facilitate the exchange of human-oriented information specific to the BGP-4 session through which the ADVISORY is distributed.
-                In concept this enhancement is similar to the dissemination of <xref target="RFC1288">plan files</xref>, and not intended for real-time communication.
-                The ADVISORY message is specifically meant to help bootstrap out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.
+                This document defines the <xref target="RFC4271">BGP-4</xref> ADVISORY Message and ADVISORY Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is distributed.
+                In concept this enhancement is similar to the dissemination of <xref target="RFC1288">plan files</xref>, or <xref target="IEEE.1003.1_2013_EDITION">write(1)</xref> and not intended for real-time interactive communication.
+                The ADVISORY message is specifically meant to aid root cause analysis and bootstrapping out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.
             </t>
         </section>
 
@@ -120,22 +120,26 @@
                 </t>
 			<section title="ADVISORY Message Example">
 				<t>
-					A ADVISORY message example:
+					An example ADVISORY message:
 <figure align="center"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length:  9  | Key "noc email" |
+| N Length: 47  |    Expire after this amount of seconds:   0   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Notice Payload: "We are prepending announcements"           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| A Length:  9  | Key "noc email" |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 11  | Value "noc@ntt.net" |
+| A Length: 11  | Value "noc@ntt.net" |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 10  | Key "24/7 phone"  |
+| A Length: 10  | Key "24/7 phone"  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 15  | Value "+1 877 688-6625"     |
+| A Length: 15  | Value "+1 877 688-6625"     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 10  | Key: "Service ID" |
+| A Length: 10  | Key: "Service ID" |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Length: 13  | Value: "USID 89024294"  |
+| A Length: 13  | Value: "USID 89024294"  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork></figure>
 </t>
@@ -202,6 +206,9 @@ RouterB#
                 All errors detected while processing the ADVISORY message MUST be indicated by sending the NOTIFICATION message with the Error Code ADVISORY Message Error.
                 The error subcode elaborates on the specific nature of the error.
             </t>
+            <t>
+                A zero length ADVISORY message MUST NOT be considered malformed.
+            </t>
         </section>
 
         <section anchor="iana" title="IANA Considerations">
@@ -264,6 +271,20 @@ RouterB#
         </references>
         <references title="Informative References">
             <?rfc include="reference.RFC.1288"?>
+            <reference anchor='IEEE.1003.1_2013_EDITION' target='http://ieeexplore.ieee.org/servlet/opac?punumber=6506089'>
+                <front>
+                    <title>Standard for Information TechnologyPortable Operating System Interface (POSIX(R)) Base Specifications, Issue 7</title>
+                    <author>
+                        <organization>IEEE</organization>
+                    </author>
+                    <date day='19' month='April' year='2013' />
+                    <abstract><t>POSIX.1-2008 is simultaneously IEEE Std 1003.1-2008 and The Open Group Technical Standard BaseSpecifications, Issue 7. This 2013 Edition includes IEEE Std 1003.1-2008/Cor 1-2013 incorporated into IEEE Std 1003.1-2008 (the base document). The Technical Corrigendum addresses problems discovered since the approval of IEEE Std 1003.1-2008. POSIX.1-2008 defines a standard operating system interface and environment, including a command interpreter (or shell), and common utility programs to support applications portability at the source code level. POSIX.1-2008 is intended to be used by both application developers and system implementors and comprises four major components (each in an associated volume).</t>
+                    </abstract>
+                </front>
+                <seriesInfo name='IEEE' value='1003.1, 2013 Edition' />
+                <seriesInfo name='DOI' value='10.1109/ieeestd.2013.6506091' />
+            </reference>
+
             <reference anchor="UTR36" target="http://unicode.org/reports/tr36/">
                 <front>
                     <title>Unicode Security Considerations</title>

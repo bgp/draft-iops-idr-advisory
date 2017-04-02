@@ -5,7 +5,7 @@
 <head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
 
-  <title>The ADVISORY Message Type for BGP-4 </title>
+  <title>BGP ADVISORY Message </title>
 
   <style type="text/css" title="Xml2Rfc (sans serif)">
   /*<![CDATA[*/
@@ -395,7 +395,7 @@
   <meta name="generator" content="xml2rfc version 2.5.2 - http://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
-  <meta name="dct.creator" content="Snijders, J., Freedman, D., Heitz, J., and D. Sharp" />
+  <meta name="dct.creator" content="Snijders, J., Ed., Freedman, D., Heitz, J., and D. Sharp" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-iops-idr-bgp-advisory-message-00" />
   <meta name="dct.issued" scheme="ISO8601" content="2017-4-2" />
   <meta name="dct.abstract" content="This document defines the BGP-4 ADVISORY Message and ADVISORY Capability to facilitate the exchange of session-specific human-oriented information between network operators.  " />
@@ -410,7 +410,7 @@
     
     	<tr>
   <td class="left">IDR</td>
-  <td class="right">J. Snijders</td>
+  <td class="right">J. Snijders, Ed.</td>
 </tr>
 <tr>
   <td class="left">Internet-Draft</td>
@@ -449,7 +449,7 @@
     </tbody>
   </table>
 
-  <p class="title">The ADVISORY Message Type for BGP-4 <br />
+  <p class="title">BGP ADVISORY Message <br />
   <span class="filename">draft-iops-idr-bgp-advisory-message-00</span></p>
   
   <h1 id="rfc.abstract">
@@ -500,7 +500,7 @@
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#intro" id="intro">Introduction</a></h1>
-<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and ADVISORY Capability to facilitate the exchange of human-oriented information specific to the BGP-4 session through which the ADVISORY is distributed.  In concept this enhancement is similar to the dissemination of <a href="#RFC1288">plan files</a> <cite title="NONE">[RFC1288]</cite>, and not intended for real-time communication.  The ADVISORY message is specifically meant to help bootstrap out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.  </p>
+<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and ADVISORY Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is distributed.  In concept this enhancement is similar to the dissemination of <a href="#RFC1288">plan files</a> <cite title="NONE">[RFC1288]</cite>, or <a href="#IEEE.1003.1_2013_EDITION">write(1)</a> <cite title="NONE">[IEEE.1003.1_2013_EDITION]</cite> and not intended for real-time interactive communication.  The ADVISORY message is specifically meant to help bootstrap out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.  </p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#protextensions" id="protextensions">Protocol Extensions</a></h1>
 <p id="rfc.section.2.p.1">The BGP protocol extensions introduced in this document include the definition of a new BGP capability, named "ADVISORY Capability", and the specification of the ADVISORY message.  </p>
 <h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#cap" id="cap">ADVISORY Capability</a></h1>
@@ -606,6 +606,12 @@ RouterB#
   <tbody>
     <tr>
       <td class="reference">
+        <b id="IEEE.1003.1_2013_EDITION">[IEEE.1003.1_2013_EDITION]</b>
+      </td>
+      <td class="top"><a>IEEE</a>, "<a href="http://ieeexplore.ieee.org/servlet/opac?punumber=6506089">Standard for Information TechnologyPortable Operating System Interface (POSIX(R)) Base Specifications, Issue 7</a>", IEEE 1003.1, 2013 Edition, DOI 10.1109/ieeestd.2013.6506091, April 2013.</td>
+    </tr>
+    <tr>
+      <td class="reference">
         <b id="RFC1288">[RFC1288]</b>
       </td>
       <td class="top"><a>Zimmerman, D.</a>, "<a href="http://tools.ietf.org/html/rfc1288">The Finger User Information Protocol</a>", RFC 1288, DOI 10.17487/RFC1288, December 1991.</td>
@@ -643,7 +649,7 @@ Email: jgs@juniper.net
 <div class="avoidbreak">
   <address class="vcard">
 	<span class="vcardline">
-	  <span class="fn">Job Snijders</span> 
+	  <span class="fn">Job Snijders</span> (editor)
 	  <span class="n hidden">
 		<span class="family-name">Snijders</span>
 	  </span>
