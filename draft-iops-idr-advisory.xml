@@ -304,7 +304,7 @@ RouterB#
             <?rfc include="reference.RFC.1288"?>
             <reference anchor='IEEE.1003.1_2013_EDITION' target='http://ieeexplore.ieee.org/servlet/opac?punumber=6506089'>
                 <front>
-                    <title>Standard for Information TechnologyPortable Operating System Interface (POSIX(R)) Base Specifications, Issue 7</title>
+                    <title>Standard for Information Technology Portable Operating System Interface (POSIX(R)) Base Specifications, Issue 7</title>
                     <author>
                         <organization>IEEE</organization>
                     </author>
