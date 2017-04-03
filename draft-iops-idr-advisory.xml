@@ -179,15 +179,15 @@
                         UTF-8, up to 128 octets.
 				    </t>
                 </list>
-                Each ADVISORY message contains a single or no Notice.
+                Each ADVISORY message contains a single Notice or no Notice.
                 Up to 16 Advise key-value pairs can be encoded in the ADVISORY message.
             </t>
             <section title="Note on UTF-8">
                 <t>
-                    To support international characters, the Notice Payload field MUST be encoded using UTF-8.
+                    To support international characters, fields MUST be encoded using UTF-8.
                     A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.
-                    Note that when the Notice Payload contains multibyte characters, the number of characters will be less than the length value.
-                    The UTF-8 fields are not NUL terminated.
+                    Note that when a field contains multibyte characters, the number of characters will be less than the length value.
+                    Fields containing UTF-8 are not NUL terminated.
                 </t>
             </section>
         </section>
