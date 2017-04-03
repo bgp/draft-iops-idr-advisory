@@ -162,21 +162,21 @@
                     </t>
                     <t></t>
                     <t hangText="A Length: Y">
-                        this 8-bit field represents the length of the following Advise Key field in octets.
+                        this 8-bit field represents the length of the next Advise Key field in octets.
                         The length value MUST range from 0 to 32 inclusive.
                     </t>
                     <t></t>
                     <t hangText="Key 1:">
-                        UTF-8, up to 32 octets.
+                        Advise Key 1, UTF-8, up to 32 octets.
                     </t>
                     <t></t>
                     <t hangText="A Length: Z">
-                        this 8-bit field represents the length of the following Advise Value field in octets.
+                        this 8-bit field represents the length of the next Advise Value field in octets.
                         The length value MUST range from 0 to 32 inclusive.
 				    </t>
                     <t></t>
                     <t hangText="Value 1:">
-                        UTF-8, up to 128 octets.
+                        Advise Value 1, UTF-8, up to 128 octets.
 				    </t>
                 </list>
                 Each ADVISORY message contains a single Notice or no Notice.

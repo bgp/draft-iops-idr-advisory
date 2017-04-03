@@ -172,17 +172,17 @@ Table of Contents
 
    Notice Payload:  UTF-8, up to 128 octets.
 
-   A Length: Y  this 8-bit field represents the length of the following
+   A Length: Y  this 8-bit field represents the length of the next
       Advise Key field in octets.  The length value MUST range from 0 to
       32 inclusive.
 
-   Key 1:  UTF-8, up to 32 octets.
+   Key 1:  Advise Key 1, UTF-8, up to 32 octets.
 
-   A Length: Z  this 8-bit field represents the length of the following
+   A Length: Z  this 8-bit field represents the length of the next
       Advise Value field in octets.  The length value MUST range from 0
       to 32 inclusive.
 
-   Value 1:  UTF-8, up to 128 octets.
+   Value 1:  Advise Value 1, UTF-8, up to 128 octets.
 
    Each ADVISORY message contains a single Notice or no Notice.  Up to
    16 Advise key-value pairs can be encoded in the ADVISORY message.
