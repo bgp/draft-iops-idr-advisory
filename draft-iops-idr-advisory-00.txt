@@ -249,11 +249,11 @@ RouterB#
              +--------------------------------------+-------+
              | name                                 | value |
              +--------------------------------------+-------+
-             | Invalid ADVISORY Message Length      | TBD   |
-             | Invalid ADVISORY NOTICE Length       | TBD   |
-             | Invalid ADVISORY ADVISE Key Length   | TBD   |
-             | Invalid ADVISORY ADVISE Value Length | TBD   |
-             | Garbage ADVISORY Trailing Data       | TBD   |
+             | Invalid ADVISORY Message Length      |  TBD  |
+             | Invalid ADVISORY NOTICE Length       |  TBD  |
+             | Invalid ADVISORY ADVISE Key Length   |  TBD  |
+             | Invalid ADVISORY ADVISE Value Length |  TBD  |
+             | Garbage ADVISORY Trailing Data       |  TBD  |
              +--------------------------------------+-------+
 
                  Table 1: ADVISORY Message Error subcodes
@@ -283,8 +283,8 @@ RouterB#
    subcodes" for error subcodes, under the "BGP Error Subcodes"
    subregistry under the "Border Gateway Protocol (BGP) Parameters"
    registry.  The Registration Procedure for this new registry is "First
-   Come First Served".  IANA is requested to assign value TBD3 (Invalid
-   Message Length) in this new error subcode registry.
+   Come First Served".  IANA is requested to assign and register the
+   values from Table 1 in this new error subcode registry.
 
    IANA is requested to assign value TBD4 (Support for ADVISORY Message
    Capability) in the "Capability Codes" registry.

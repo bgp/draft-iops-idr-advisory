@@ -616,29 +616,29 @@ RouterB#
   <thead>
     <tr>
       <th class="left">name</th>
-      <th class="left">value</th>
+      <th class="center">value</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td class="left">Invalid ADVISORY Message Length</td>
-      <td class="left">TBD</td>
+      <td class="center">TBD</td>
     </tr>
     <tr>
       <td class="left">Invalid ADVISORY NOTICE Length</td>
-      <td class="left">TBD</td>
+      <td class="center">TBD</td>
     </tr>
     <tr>
       <td class="left">Invalid ADVISORY ADVISE Key Length</td>
-      <td class="left">TBD</td>
+      <td class="center">TBD</td>
     </tr>
     <tr>
       <td class="left">Invalid ADVISORY ADVISE Value Length</td>
-      <td class="left">TBD</td>
+      <td class="center">TBD</td>
     </tr>
     <tr>
       <td class="left">Garbage ADVISORY Trailing Data</td>
-      <td class="left">TBD</td>
+      <td class="center">TBD</td>
     </tr>
   </tbody>
 </table>
@@ -648,7 +648,7 @@ RouterB#
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#iana" id="iana">IANA Considerations</a></h1>
 <p id="rfc.section.5.p.1">IANA is requested to assign value TBD1 (ADVISORY) in the "BGP Message Types" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.  </p>
 <p id="rfc.section.5.p.2">IANA is requested to assign value TBD2 (ADVISORY Message Error) in the "BGP Error (Notification) Codes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.  </p>
-<p id="rfc.section.5.p.3">IANA is requested to create a new registry "ADVISORY Message Error subcodes" for error subcodes, under the "BGP Error Subcodes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.  The Registration Procedure for this new registry is "First Come First Served".  IANA is requested to assign value TBD3 (Invalid Message Length) in this new error subcode registry.  </p>
+<p id="rfc.section.5.p.3">IANA is requested to create a new registry "ADVISORY Message Error subcodes" for error subcodes, under the "BGP Error Subcodes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.  The Registration Procedure for this new registry is "First Come First Served".  IANA is requested to assign and register the values from <a href="#error_subcodes">Table 1</a> in this new error subcode registry.  </p>
 <p id="rfc.section.5.p.4">IANA is requested to assign value TBD4 (Support for ADVISORY Message Capability) in the "Capability Codes" registry.  </p>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#security" id="security">Security Considerations</a></h1>
 <p id="rfc.section.6.p.1">This document uses UTF-8 encoding for the ADVISORY message.  Look at the security section here <a href="#I-D.ietf-idr-shutdown">[I-D.ietf-idr-shutdown]</a>.  <a href="#UTR36">UNICODE TR36</a> <cite title="NONE">[UTR36]</cite> is important.  </p>

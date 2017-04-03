@@ -281,7 +281,7 @@ RouterB#
             <t>
                 IANA is requested to create a new registry "ADVISORY Message Error subcodes" for error subcodes, under the "BGP Error Subcodes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.
                 The Registration Procedure for this new registry is "First Come First Served".
-                IANA is requested to assign value TBD3 (Invalid Message Length) in this new error subcode registry.
+                IANA is requested to assign and register the values from <xref target="error_subcodes" /> in this new error subcode registry.
             </t>
             <t>
                 IANA is requested to assign value TBD4 (Support for ADVISORY Message Capability) in the "Capability Codes" registry.
