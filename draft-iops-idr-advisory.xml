@@ -135,16 +135,16 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    N-length   |                N-duration                     |
+|    N-length   |                                               \
++-+-+-+-+-+-+-+-+                                               /
+/                         N-payload (max length 128)            \
+\                                                               /
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-\                                                               \
-/                   N-payload (max length 128)                  /
-\                                                               \
+|    A-length   |         A-key (max length 32)                 \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    A-length   |    A-key (max length 32)      |   A-length    |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    A'-length  |                                               /
 \                                                               \
-/                   A-value (max length 128)                    /
+/                         A-value (max length 128)              /
 \                                                               \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 \                                                               \
@@ -157,11 +157,6 @@
                         This 8-bit field represents the length of the NOTICE payload field in octets.
                         The length value MUST range from 0 to 128 inclusive.
                         When the length value is zero, no NOTICE payload field follows.
-                    </t>
-                    <t></t>
-                    <t hangText="N-duration:">
-                        This 24-bit field represents the duration in seconds for which the NOTICE is valid.
-                        When the NOTICE length value is zero, this field is set to zero on transmission and ignored on receipt.
                     </t>
                     <t></t>
                     <t hangText="N-payload:">
@@ -177,7 +172,7 @@
                         ADVISE key, UTF-8, up to 32 octets.
                     </t>
                     <t></t>
-                    <t hangText="A-length:">
+                    <t hangText="A'-length:">
                         This 8-bit field represents the length of the following ADVISE value field for this key, in octets.
                         The length value MUST range from 0 to 32 inclusive.
 				    </t>
@@ -399,7 +394,7 @@ Email: jgs@juniper.net
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| N-length: 31  |           N-duration: 0 seconds               |
+| N-length: 31  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                                                               |
 +                                                               +
