@@ -256,6 +256,9 @@ RouterB#
 
         <section anchor="error" title="Error Handling">
             <t>
+		The following section assumes HARD error failure, but another option is to fail softly. For WG discussion.
+            </t>
+            <t>
                 This document defines a new NOTIFICATION error code: "ADVISORY Message Error".
                 The following new error subcodes are defined:
             </t>
@@ -266,7 +269,6 @@ RouterB#
                 <c>Invalid ADVISORY NOTICE Length</c><c>TBD</c>
                 <c>Invalid ADVISORY ADVISE Key Length</c><c>TBD</c>
                 <c>Invalid ADVISORY ADVISE Value Length</c><c>TBD</c>
-                <c>Garbage ADVISORY Trailing Data</c><c>TBD</c>
             </texttable>
             <t>
                 The error handling specified in this section is applicable only when a BGP speaker has received the "Support for ADVISORY Message Capability" from a peer.
