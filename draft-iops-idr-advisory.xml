@@ -212,7 +212,6 @@
 router bgp 64496
   bgp router-id 10.0.0.1
   neighbor 10.0.0.2 remote-as 64497
-  neighbor 10.0.0.2 notice "We are prepending announcements"
   neighbor 10.0.0.2 advise "noc email" "noc@ntt.net"
   neighbor 10.0.0.2 advise "24/7 phone" "+1 877 688-6625"
   neighbor 10.0.0.2 advise "Service ID" "USID 89024294"
@@ -225,20 +224,24 @@ router bgp 64496
 <preamble>Router B</preamble><artwork><![CDATA[
 RouterB# show bgp neighbor 10.0.0.2 advisory
   
-  Latest ADVISORY from 10.0.0.2 / AS 64496:
+ADVISORY message from 10.0.0.2 / AS 64496:
 
-  NOTICE: We are prepending announcements
+Fri 31 Mar 04:38:00 2017 UTC NOTICE: V-NOC-2324248 is starting
+Fri 31 Mar 04:38:10 2017 UTC NOTICE: We are prepending announcements
+Fri 31 Mar 04:45:06 2017 UTC NOTICE: Applying graceful shutdown
+Fri 31 Mar 04:50:07 2017 UTC SHUTDOWN: rebooting, maint V-NOC-2324248
+Fri 31 Mar 05:13:34 2017 UTC NOTICE: Maintenance over, restoring policies
 
-    noc email    :  noc@ntt.net
-    24/7 phone   :  +1 877 688-6625
-    Service ID   :  USID 89024294
+Advise:
 
-  Received: Fri 31 Mar 04:38:10 2017 UTC
+noc email    :  noc@ntt.net
+24/7 phone   :  +1 877 688-6625
+Service ID   :  USID 89024294
 
-  ADVISORY Message statistics:
+ADVISORY Message statistics:
 
-                  Sent       Received
-                     5             15
+              Sent       Received
+                 5             15
 
 RouterB#
 ]]></artwork></figure>

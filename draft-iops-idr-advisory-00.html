@@ -502,15 +502,15 @@
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#intro" id="intro">Introduction</a></h1>
-<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is distributed.  In concept this enhancement is similar to the dissemination of <a href="#RFC1288">plan files</a> <cite title="NONE">[RFC1288]</cite>, or <a href="#IEEE.1003.1">write(1)</a> <cite title="NONE">[IEEE.1003.1]</cite> and not intended for real-time interactive communication.  The ADVISORY message is specifically meant to aid root cause analysis and bootstrapping out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.  </p>
+<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is transmitted.  In concept this enhancement is similar to the dissemination of <a href="#RFC1288">plan files</a> <cite title="NONE">[RFC1288]</cite>, or <a href="#IEEE.1003.1">write(1)</a> <cite title="NONE">[IEEE.1003.1]</cite> and not intended for real-time interactive communication.  ADVISORY messages are intended to aid root cause analysis and bootstrapping of out-of-band communication between operators by allowing them to signal key information over a known (and potentially trusted) in-band communication channel that is an existing BGP session.  </p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#protextensions" id="protextensions">Protocol Extensions</a></h1>
 <p id="rfc.section.2.p.1">The BGP protocol extensions introduced in this document include the definition of a new BGP capability, named "Support for ADVISORY Message Capability", and the specification of the ADVISORY message.  </p>
 <h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#cap" id="cap">Support for ADVISORY Message Capability</a></h1>
 <p id="rfc.section.2.1.p.1">The "Support for ADVISORY Message Capability" is a new <a href="#RFC5492">BGP capability</a> <cite title="NONE">[RFC5492]</cite>.  The Length field of this capability MUST be set to 1.  The Capability value MUST be set to the version of the ADVISORY message supported by the BGP speaker.  This document only defines ADVISORY version 1 messages.  </p>
 <p id="rfc.section.2.1.p.2">By advertising this capability to a peer, a BGP speaker conveys to the peer that the speaker supports receiving ADVISORY messages, indicates what version of the ADVISORY message it supports, and supports the related procedures described in this document.  </p>
 <h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> <a href="#message" id="message">ADVISORY Message</a></h1>
-<p id="rfc.section.2.2.p.1">A ADVISORY message is composed of an optional Notice, and optionally one or more Advise key-value pairs.  A ADVISORY message MUST NOT contain more than 16 Advise key-value pairs.  Each key and each value field MUST be proceeded by a one octet Length field to indicate the length of the subsequent field.  Advise key fields have a REQUIRED maximum length of 32 octets.  Advise value fields have a REQUIRED maximum length of 128 octets.  To support international characters, all string fields MUST be encoded using UTF-8.  Fields are not NUL terminated.  There is no significance to the order of key-value pairs.  </p>
-<p id="rfc.section.2.2.p.2">A zero-length ADVISORY message can be send to clear any Advisory information on the remote side.  </p>
+<p id="rfc.section.2.2.p.1">An ADVISORY message is composed of an optional NOTICE, and optionally one or more ADVISE key-value pairs.  An ADVISORY message MUST NOT contain more than 16 ADVISE key-value pairs.  Each key and each value field MUST be preceded by a 1 octet Length field to indicate the length of the subsequent field.  ADVISE key fields have a REQUIRED maximum length of 32 octets.  ADVISE value fields have a REQUIRED maximum length of 128 octets.  To support international characters, all string fields MUST be encoded using UTF-8.  Fields are not NUL terminated.  There is no significance to the order of key-value pairs.  </p>
+<p id="rfc.section.2.2.p.2">A zero-length ADVISORY message can be send to clear any ADVISORY information on the remote side.  </p>
 <p/>
 
 <p>ADVISORY message format</p>
@@ -518,16 +518,16 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  N Length: X  |                Notice Duration                |
+|    N-length   |                N-duration                     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 \                                                               \
-/            Notice Payload (max length X is 128)               /
+/                   N-payload (max length 128)                  /
 \                                                               \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  A Length: Y  |   Key 1 (max length Y is 32)  |  A Length: Z  |
+|    A-length   |    A-key (max length 32)      |   A-length    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 \                                                               \
-/               Value 1 (max length Z is 128)                   /
+/                   A-value (max length 128)                    /
 \                                                               \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 \                                                               \
@@ -536,35 +536,35 @@
 <p/>
 
 <dl>
-  <dt>N Length:</dt>
-  <dd style="margin-left: 8">this 8-bit field represents the length of the Notice Payload field in octets.  The length value MUST range from 0 to 128 inclusive.  When the length value is zero, no Notice Payload field follows.  </dd>
+  <dt>N-length:</dt>
+  <dd style="margin-left: 8">This 8-bit field represents the length of the NOTICE payload field in octets.  The length value MUST range from 0 to 128 inclusive.  When the length value is zero, no NOTICE payload field follows.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>Notice Duration:</dt>
-  <dd style="margin-left: 8">this 24-bit field represents the duration in seconds for which the Notice is valid.  When the Notice Length value is zero, this field is set to zero on transmission and ignored on receipt.  </dd>
+  <dt>N-duration:</dt>
+  <dd style="margin-left: 8">This 24-bit field represents the duration in seconds for which the NOTICE is valid.  When the NOTICE length value is zero, this field is set to zero on transmission and ignored on receipt.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>Notice Payload:</dt>
+  <dt>N-payload:</dt>
   <dd style="margin-left: 8">UTF-8, up to 128 octets.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>A Length: Y</dt>
-  <dd style="margin-left: 8">this 8-bit field represents the length of the next Advise Key field in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
+  <dt>A-length:</dt>
+  <dd style="margin-left: 8">This 8-bit field represents the length of the next ADVISE key field in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>Key 1:</dt>
-  <dd style="margin-left: 8">Advise Key 1, UTF-8, up to 32 octets.  </dd>
+  <dt>A-key:</dt>
+  <dd style="margin-left: 8">ADVISE key, UTF-8, up to 32 octets.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>A Length: Z</dt>
-  <dd style="margin-left: 8">this 8-bit field represents the length of the next Advise Value field in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
+  <dt>A-length:</dt>
+  <dd style="margin-left: 8">This 8-bit field represents the length of the following ADVISE value field for this key, in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>Value 1:</dt>
-  <dd style="margin-left: 8">Advise Value 1, UTF-8, up to 128 octets.  </dd>
+  <dt>A-value:</dt>
+  <dd style="margin-left: 8">ADVISE value for this key, UTF-8, up to 128 octets.  </dd>
 </dl>
 
-<p> Each ADVISORY message contains a single Notice or no Notice.  Up to 16 Advise key-value pairs can be encoded in the ADVISORY message.  </p>
+<p> Each ADVISORY message contains zero or more NOTICE payloads.  Up to 16 ADVISE key-value pairs can be encoded in the ADVISORY message.  </p>
 <h1 id="rfc.section.2.2.1"><a href="#rfc.section.2.2.1">2.2.1.</a> Note on UTF-8</h1>
 <p id="rfc.section.2.2.1.p.1">To support international characters, fields MUST be encoded using UTF-8.  A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.  Note that when a field contains multibyte characters, the number of characters will be less than the length value.  Fields containing UTF-8 are not NUL terminated.  </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#ops" id="ops">Operational Considerations</a></h1>
@@ -578,7 +578,6 @@
 router bgp 64496
   bgp router-id 10.0.0.1
   neighbor 10.0.0.2 remote-as 64497
-  neighbor 10.0.0.2 notice "We are prepending announcements"
   neighbor 10.0.0.2 advise "noc email" "noc@ntt.net"
   neighbor 10.0.0.2 advise "24/7 phone" "+1 877 688-6625"
   neighbor 10.0.0.2 advise "Service ID" "USID 89024294"
@@ -591,20 +590,24 @@ router bgp 64496
 <pre>
 RouterB# show bgp neighbor 10.0.0.2 advisory
   
-  Latest ADVISORY from 10.0.0.2 / AS 64496:
+ADVISORY message from 10.0.0.2 / AS 64496:
 
-  NOTICE: We are prepending announcements
+Fri 31 Mar 04:38:00 2017 UTC NOTICE: V-NOC-2324248 is starting
+Fri 31 Mar 04:38:10 2017 UTC NOTICE: We are prepending announcements
+Fri 31 Mar 04:45:06 2017 UTC NOTICE: Applying graceful shutdown
+Fri 31 Mar 04:50:07 2017 UTC SHUTDOWN: rebooting, maint V-NOC-2324248
+Fri 31 Mar 05:13:34 2017 UTC NOTICE: Maintenance over, restoring policies
 
-    noc email    :  noc@ntt.net
-    24/7 phone   :  +1 877 688-6625
-    Service ID   :  USID 89024294
+Advise:
 
-  Received: Fri 31 Mar 04:38:10 2017 UTC
+noc email    :  noc@ntt.net
+24/7 phone   :  +1 877 688-6625
+Service ID   :  USID 89024294
 
-  ADVISORY Message statistics:
+ADVISORY Message statistics:
 
-                  Sent       Received
-                     5             15
+              Sent       Received
+                 5             15
 
 RouterB#
 </pre>
@@ -697,49 +700,50 @@ Email: jgs@juniper.net
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| N Length: 31  |           Notice Duration: 0 seconds          |
+| N-length: 31  |           N-duration: 0 seconds               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                                                               |
 +                                                               +
-|      Notice Payload: "We are prepending announcements"        |
+|           N-payload: "We are prepending announcements"        |
 +                                                               +
 |                                                               |
 +                                               +-+-+-+-+-+-+-+-+
-|                                               |  A1 Length: 9 |
+|                                               |  A1 length: 9 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                                                               |
-+                   A1 Key "noc email"                          +
++                   A-key: "noc email"                          +
 |                                                               |
 +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               | A1 Length: 11 |                               |
+|               | A-length: 11  |                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
 |                                                               |
-+                        A1 Value: "noc@ntt.net"                +
++                        A-value: "noc@ntt.net"                 +
 |                                                               |
 +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               | A2 Length: 10 |                               |
+|               | A-length: 10  |                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
 |                                                               |
-+                     A2 Key "24/7 phone"                       +
++                     A-key: "24/7 phone"                       +
 |                                                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A2 Length: 15 |                                               |
+| A-length: 15  |                                               |
 +-+-+-+-+-+-+-+-+                                               +
 |                                                               |
-+                         A2 Value "+1 877 688-6625"            +
++                    A-value: "+1 877 688-6625"                 +
 |                                                               |
 +                                                               +
 |                                                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A3 Length: 10 |                                               |
-+                    A3 Key: "Service ID"                       +
+| A-length: 10  |                                               |
++-+-+-+-+-+-+-+-+                                               +
++                    A-key:  "service ID"                       +
 |                                                               |
 +                                               +-+-+-+-+-+-+-+-+
-|                                               | A3 Length: 13 |
+|                                               | A-l ength: 13 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                                                               |
 +                                                               +
-|                   A3 Value: "USID 89024294"                   |
+|                   A-value: "USID 89024294"                    |
 +                                                               +
 |                                                               |
 +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -782,13 +786,14 @@ Email: jgs@juniper.net
 	</span>
 	<span class="org vcardline">Claranet Limited</span>
 	<span class="adr">
-	  
+	  <span class="vcardline">21 Southampton Row, Holborn</span>
+
 	  <span class="vcardline">
-		<span class="locality"></span> 
+		<span class="locality">London</span>,  
 		<span class="region"></span>
-		<span class="code"></span>
+		<span class="code">WC1B 5HA</span>
 	  </span>
-	  <span class="country-name vcardline"></span>
+	  <span class="country-name vcardline">UK</span>
 	</span>
 	<span class="vcardline">EMail: <a href="mailto:david.freedman@uk.clara.net">david.freedman@uk.clara.net</a></span>
 
