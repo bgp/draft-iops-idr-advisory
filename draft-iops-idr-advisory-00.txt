@@ -2,7 +2,7 @@
 
 
 
-IDR                                                     J. Snijders, Ed.
+IDR                                                          J. Snijders
 Internet-Draft                                                       NTT
 Intended status: Standards Track                             D. Freedman
 Expires: October 5, 2017                                        Claranet
@@ -277,8 +277,9 @@ Table of Contents
 
 6.  Security Considerations
 
-   This document uses UTF-8 encoding for the ADVISORY message.  UNICODE
-   TR36 [UTR36] to learn about these
+   This document uses UTF-8 encoding for the ADVISORY message.  Look at
+   the security section here [I-D.ietf-idr-shutdown].  UNICODE TR36
+   [UTR36] is important.
 
 7.  References
 
@@ -299,6 +300,11 @@ Table of Contents
               2009, <http://www.rfc-editor.org/info/rfc5492>.
 
 7.2.  Informative References
+
+   [I-D.ietf-idr-shutdown]
+              Snijders, J., Heitz, J., and J. Scudder, "BGP
+              Administrative Shutdown Communication", draft-ietf-idr-
+              shutdown-07 (work in progress), March 2017.
 
    [IEEE.1003.1]
               IEEE, "Standard for Information Technology Portable
@@ -395,7 +401,7 @@ Appendix C.  ADVISORY Message Example
 
 Authors' Addresses
 
-   Job Snijders (editor)
+   Job Snijders
    NTT Communications
    Theodorus Majofskistraat 100
    Amsterdam  1065 SZ
