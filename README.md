@@ -1,5 +1,5 @@
-BGP-4 MEMO Message IETF Draft Repository
-========================================
+BGP-4 ADVISORY Message IETF Draft Repository
+============================================
 
 Authoring Conventions
 ---------------------
