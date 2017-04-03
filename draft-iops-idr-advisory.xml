@@ -95,7 +95,8 @@
             <t>
                 This document defines the <xref target="RFC4271">BGP-4</xref> ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is transmitted.
                 In concept this enhancement is similar to the dissemination of <xref target="RFC1288">plan files</xref>, or <xref target="IEEE.1003.1">write(1)</xref> and not intended for real-time interactive communication.
-                ADVISORY messages are intended to aid root cause analysis and bootstrapping of out-of-band communication between operators by allowing them to signal key information over a known (and potentially trusted) in-band communication channel that is an existing BGP session.
+                FIXME: write is a bad example.
+                ADVISORY messages are intended to aid root cause analysis and bootstrapping of out-of-band communication between operators by allowing them to signal key information over the known (and potentially trusted) in-band communication channel that is an existing BGP session.
             </t>
         </section>
 
@@ -107,11 +108,11 @@
                 <t>
                     The "Support for ADVISORY Message Capability" is a new <xref target="RFC5492">BGP capability</xref>.
                     The Length field of this capability MUST be set to 1.
-					The Capability value MUST be set to the version of the ADVISORY message supported by the BGP speaker.
+					The Capability value MUST be set to the highest version of the ADVISORY message supported by the BGP speaker.
 					This document only defines ADVISORY version 1 messages.
                 </t>
                 <t>
-                    By advertising this capability to a peer, a BGP speaker conveys to the peer that the speaker supports receiving ADVISORY messages, indicates what version of the ADVISORY message it supports, and supports the related procedures described in this document. 
+                    By advertising this capability to a peer, a BGP speaker conveys to the peer that the speaker supports receiving ADVISORY messages, indicates what version of the ADVISORY message it supports, and indicates that it supports the related procedures described in this document. 
                 </t>
             </section>
             <section anchor="message" title="ADVISORY Message">
@@ -124,6 +125,9 @@
 					To support international characters, all string fields MUST be encoded using UTF-8.
                     Fields are not NUL terminated.
                     There is no significance to the order of key-value pairs.
+                </t>
+                <t>
+                    When sending a new ADVISORY message to transmit a new NOTICE, the sender MUST repeat all configured ADVISE data.
                 </t>
                 <t>
                     A zero-length ADVISORY message can be send to clear any ADVISORY information on the remote side.
@@ -189,7 +193,7 @@
                     To support international characters, fields MUST be encoded using UTF-8.
                     A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.
                     Note that when a field contains multibyte characters, the number of characters will be less than the length value.
-                    Fields containing UTF-8 are not NUL terminated.
+                    Fields are not NUL terminated.
                 </t>
             </section>
         </section>
@@ -397,7 +401,7 @@ Email: jgs@juniper.net
 
 	<section anchor="acknowledgements" title="Acknowledgements">
 		<t>
-			The authors would like to gratefully acknowledge ...
+			The authors would like to gratefully acknowledge Peter van Dijk.
 		</t>
     </section>
 
