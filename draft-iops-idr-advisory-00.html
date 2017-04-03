@@ -397,7 +397,7 @@
 
   <meta name="dct.creator" content="Snijders, J., Ed., Freedman, D., Heitz, J., and D. Sharp" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-iops-idr-bgp-advisory-message-00" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-4-2" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-4-3" />
   <meta name="dct.abstract" content="This document defines the BGP-4 ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of session-specific human-oriented information between network operators.  " />
   <meta name="description" content="This document defines the BGP-4 ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of session-specific human-oriented information between network operators.  " />
 
@@ -421,7 +421,7 @@
   <td class="right">D. Freedman</td>
 </tr>
 <tr>
-  <td class="left">Expires: October 4, 2017</td>
+  <td class="left">Expires: October 5, 2017</td>
   <td class="right">Claranet</td>
 </tr>
 <tr>
@@ -442,7 +442,7 @@
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">April 2, 2017</td>
+  <td class="right">April 3, 2017</td>
 </tr>
 
     	
@@ -466,7 +466,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on October 4, 2017.</p>
+<p>This Internet-Draft will expire on October 5, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -516,7 +516,7 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  N Length: X  |              Expiration Timer                 |
+|  N Length: X  |                Notice Duration                |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 \                                                               \
 /            Notice Payload (max length X is 128)               /
@@ -527,13 +527,11 @@
 \                                                               \
 /               Value 1 (max length Z is 128)                   /
 \                                                               \
-\                                                               \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | A' Length: Y' |  Key 2 (max length Y' is 32)  | A' Length: Z' |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 \                                                               \
 /               Value 2 (max length Z' is 128)                  /
-\                                                               \
 \                                                               \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
@@ -543,22 +541,54 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| N Length: 34  |            Expiration Timer: 0                |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Notice Payload: "We are prepending announcements"           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A Length:  9  | Key "noc email" |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A Length: 11  | Value "noc@ntt.net" |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A Length: 10  | Key "24/7 phone"  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A Length: 15  | Value "+1 877 688-6625"     |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A Length: 10  | Key: "Service ID" |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A Length: 13  | Value: "USID 89024294"  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| N Length: 31  |           Notice Duration: 0 seconds          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                                                               +
+|      Notice Payload: "We are prepending announcements"        |
++                                                               +
+|                                                               |
++                                               +-+-+-+-+-+-+-+-+
+|                                               |  A1 Length: 9 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                   A1 Key "noc email"                          +
+|                                                               |
++               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               | A2 Length: 11 |                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+|                                                               |
++                        A2 Value: "noc@ntt.net"                +
+|                                                               |
++               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               | A3 Length: 10 |                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+|                                                               |
++                     A3 Key "24/7 phone"                       +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| A4 Length: 15 |                                               |
++-+-+-+-+-+-+-+-+                                               +
+|                                                               |
++                         A4 Value "+1 877 688-6625"            +
+|                                                               |
++                                                               +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| A5 Length: 10 |                                               |
++                    A5 Key: "Service ID"                       +
+|                                                               |
++                                               +-+-+-+-+-+-+-+-+
+|                                               | A5 Length: 13 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                                                               +
+|                A5 Value: "USID 89024294"                      |
++                                                               +
+|                                                               |
++               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               |
++-+-+-+-+-+-+-+-+
 </pre>
 <p id="rfc.section.2.2.1.p.1">An example ADVISORY message: </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#ops" id="ops">Operational Considerations</a></h1>
@@ -662,7 +692,7 @@ RouterB#
 <p id="rfc.section.A.p.1">The following people contributed to this document through their work on draft-ietf-idr-advisory-00 (the original "BGP Advisory Message"): </p>
 <pre>
 Tom Scholl
-Amazon Technologies, Inc.
+Amazon Web Services
 Email: tscholl@amazon.com
 </pre>
 <pre>

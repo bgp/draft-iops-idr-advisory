@@ -5,12 +5,12 @@
 IDR                                                     J. Snijders, Ed.
 Internet-Draft                                                       NTT
 Intended status: Standards Track                             D. Freedman
-Expires: October 4, 2017                                        Claranet
+Expires: October 5, 2017                                        Claranet
                                                                 J. Heitz
                                                                    Cisco
                                                                 D. Sharp
                                                                  Cumulus
-                                                           April 2, 2017
+                                                           April 3, 2017
 
 
                           BGP ADVISORY Message
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 4, 2017.
+   This Internet-Draft will expire on October 5, 2017.
 
 Copyright Notice
 
@@ -144,7 +144,7 @@ Table of Contents
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  N Length: X  |              Expiration Timer                 |
+   |  N Length: X  |                Notice Duration                |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    \                                                               \
    /            Notice Payload (max length X is 128)               /
@@ -155,13 +155,11 @@ Table of Contents
    \                                                               \
    /               Value 1 (max length Z is 128)                   /
    \                                                               \
-   \                                                               \
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    | A' Length: Y' |  Key 2 (max length Y' is 32)  | A' Length: Z' |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    \                                                               \
    /               Value 2 (max length Z' is 128)                  /
-   \                                                               \
    \                                                               \
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
@@ -173,22 +171,54 @@ Table of Contents
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | N Length: 34  |            Expiration Timer: 0                |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | Notice Payload: "We are prepending announcements"           |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A Length:  9  | Key "noc email" |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A Length: 11  | Value "noc@ntt.net" |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A Length: 10  | Key "24/7 phone"  |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A Length: 15  | Value "+1 877 688-6625"     |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A Length: 10  | Key: "Service ID" |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A Length: 13  | Value: "USID 89024294"  |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | N Length: 31  |           Notice Duration: 0 seconds          |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   +                                                               +
+   |      Notice Payload: "We are prepending announcements"        |
+   +                                                               +
+   |                                                               |
+   +                                               +-+-+-+-+-+-+-+-+
+   |                                               |  A1 Length: 9 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   +                   A1 Key "noc email"                          +
+   |                                                               |
+   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |               | A2 Length: 11 |                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+   |                                                               |
+   +                        A2 Value: "noc@ntt.net"                +
+   |                                                               |
+   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |               | A3 Length: 10 |                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+   |                                                               |
+   +                     A3 Key "24/7 phone"                       +
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | A4 Length: 15 |                                               |
+   +-+-+-+-+-+-+-+-+                                               +
+   |                                                               |
+   +                         A4 Value "+1 877 688-6625"            +
+   |                                                               |
+   +                                                               +
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | A5 Length: 10 |                                               |
+   +                    A5 Key: "Service ID"                       +
+   |                                                               |
+   +                                               +-+-+-+-+-+-+-+-+
+   |                                               | A5 Length: 13 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   +                                                               +
+   |                A5 Value: "USID 89024294"                      |
+   +                                                               +
+   |                                                               |
+   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |               |
+   +-+-+-+-+-+-+-+-+
 
 3.  Operational Considerations
 
@@ -314,7 +344,7 @@ Appendix A.  Contributors
    on draft-ietf-idr-advisory-00 (the original "BGP Advisory Message"):
 
    Tom Scholl
-   Amazon Technologies, Inc.
+   Amazon Web Services
    Email: tscholl@amazon.com
 
    Richard Turkbergen
