@@ -284,7 +284,8 @@ RouterB#
         <section anchor="security" title="Security Considerations">
             <t>
                 This document uses UTF-8 encoding for the ADVISORY message.
-                <xref target="UTR36">UNICODE TR36</xref> to learn about these
+                Look at the security section here <xref target="I-D.ietf-idr-shutdown" />.
+                <xref target="UTR36">UNICODE TR36</xref> is important.
             </t>                
         </section>
 <!--
@@ -338,6 +339,8 @@ RouterB#
                 <seriesInfo name='IEEE' value='1003.1, 2013 Edition' />
                 <seriesInfo name='DOI' value='10.1109/ieeestd.2013.6506091' />
             </reference>
+
+            <?rfc include="reference.I-D.draft-ietf-idr-shutdown-07"?>
 
             <reference anchor="UTR36" target="http://unicode.org/reports/tr36/">
                 <front>

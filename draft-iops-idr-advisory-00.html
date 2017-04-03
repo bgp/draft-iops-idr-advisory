@@ -396,7 +396,7 @@
   <meta name="generator" content="xml2rfc version 2.5.2 - http://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
-  <meta name="dct.creator" content="Snijders, J., Ed., Freedman, D., Heitz, J., and D. Sharp" />
+  <meta name="dct.creator" content="Snijders, J., Freedman, D., Heitz, J., and D. Sharp" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-iops-idr-bgp-advisory-message-00" />
   <meta name="dct.issued" scheme="ISO8601" content="2017-4-3" />
   <meta name="dct.abstract" content="This document defines the BGP-4 ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of session-specific human-oriented information between network operators.  " />
@@ -411,7 +411,7 @@
     
     	<tr>
   <td class="left">IDR</td>
-  <td class="right">J. Snijders, Ed.</td>
+  <td class="right">J. Snijders</td>
 </tr>
 <tr>
   <td class="left">Internet-Draft</td>
@@ -619,7 +619,7 @@ RouterB#
 <p id="rfc.section.5.p.3">IANA is requested to create a new registry "ADVISORY Message Error subcodes" for error subcodes, under the "BGP Error Subcodes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.  The Registration Procedure for this new registry is "First Come First Served".  IANA is requested to assign value TBD3 (Invalid Message Length) in this new error subcode registry.  </p>
 <p id="rfc.section.5.p.4">IANA is requested to assign value TBD4 (Support for ADVISORY Message Capability) in the "Capability Codes" registry.  </p>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#security" id="security">Security Considerations</a></h1>
-<p id="rfc.section.6.p.1">This document uses UTF-8 encoding for the ADVISORY message.  <a href="#UTR36">UNICODE TR36</a> <cite title="NONE">[UTR36]</cite> to learn about these </p>
+<p id="rfc.section.6.p.1">This document uses UTF-8 encoding for the ADVISORY message.  Look at the security section here <a href="#I-D.ietf-idr-shutdown">[I-D.ietf-idr-shutdown]</a>.  <a href="#UTR36">UNICODE TR36</a> <cite title="NONE">[UTR36]</cite> is important.  </p>
 <h1 id="rfc.references"><a href="#rfc.references">7.</a> References</h1>
 <h1 id="rfc.references.1"><a href="#rfc.references.1">7.1.</a> Normative References</h1>
 <table>
@@ -647,6 +647,12 @@ RouterB#
 <h1 id="rfc.references.2"><a href="#rfc.references.2">7.2.</a> Informative References</h1>
 <table>
   <tbody>
+    <tr>
+      <td class="reference">
+        <b id="I-D.ietf-idr-shutdown">[I-D.ietf-idr-shutdown]</b>
+      </td>
+      <td class="top"><a>Snijders, J.</a>, <a>Heitz, J.</a> and <a>J. Scudder</a>, "<a href="http://tools.ietf.org/html/draft-ietf-idr-shutdown-07">BGP Administrative Shutdown Communication</a>", Internet-Draft draft-ietf-idr-shutdown-07, March 2017.</td>
+    </tr>
     <tr>
       <td class="reference">
         <b id="IEEE.1003.1">[IEEE.1003.1]</b>
@@ -747,7 +753,7 @@ Email: jgs@juniper.net
 <div class="avoidbreak">
   <address class="vcard">
 	<span class="vcardline">
-	  <span class="fn">Job Snijders</span> (editor)
+	  <span class="fn">Job Snijders</span> 
 	  <span class="n hidden">
 		<span class="family-name">Snijders</span>
 	  </span>
