@@ -159,7 +159,7 @@ Table of Contents
    \                                                               \
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    \                                                               \
-   /           ... additional Advise key-value pairs ...           /
+   /           ... additional ADVISE key-value pairs ...           /
 
    N-Length:  This 8-bit field represents the length of the NOTICE
       payload field in octets.  The length value MUST range from 0 to
