@@ -252,7 +252,7 @@ RouterB#
             </t>
             <texttable anchor="error_subcodes" title="ADVISORY Message Error subcodes">
                 <ttcol>name</ttcol>
-                <ttcol>value</ttcol>
+                <ttcol align="center">value</ttcol>
                 <c>Invalid ADVISORY Message Length</c><c>TBD</c>
                 <c>Invalid ADVISORY NOTICE Length</c><c>TBD</c>
                 <c>Invalid ADVISORY ADVISE Key Length</c><c>TBD</c>
