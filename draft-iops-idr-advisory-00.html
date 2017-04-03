@@ -378,6 +378,7 @@
 <link href="#rfc.section.2" rel="Chapter" title="2 Protocol Extensions"/>
 <link href="#rfc.section.2.1" rel="Chapter" title="2.1 Support for ADVISORY Message Capability"/>
 <link href="#rfc.section.2.2" rel="Chapter" title="2.2 ADVISORY Message"/>
+<link href="#rfc.section.2.2.1" rel="Chapter" title="2.2.1 Note on UTF-8"/>
 <link href="#rfc.section.3" rel="Chapter" title="3 Operational Considerations"/>
 <link href="#rfc.section.3.1" rel="Chapter" title="3.1 CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION"/>
 <link href="#rfc.section.4" rel="Chapter" title="4 Error Handling"/>
@@ -483,7 +484,8 @@
 <li>2.   <a href="#rfc.section.2">Protocol Extensions</a></li>
 <ul><li>2.1.   <a href="#rfc.section.2.1">Support for ADVISORY Message Capability</a></li>
 <li>2.2.   <a href="#rfc.section.2.2">ADVISORY Message</a></li>
-</ul><li>3.   <a href="#rfc.section.3">Operational Considerations</a></li>
+<ul><li>2.2.1.   <a href="#rfc.section.2.2.1">Note on UTF-8</a></li>
+</ul></ul><li>3.   <a href="#rfc.section.3">Operational Considerations</a></li>
 <ul><li>3.1.   <a href="#rfc.section.3.1">CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION</a></li>
 </ul><li>4.   <a href="#rfc.section.4">Error Handling</a></li>
 <li>5.   <a href="#rfc.section.5">IANA Considerations</a></li>
@@ -543,7 +545,7 @@
   <dt></dt>
   <dd style="margin-left: 8"/>
   <dt>Notice Payload:</dt>
-  <dd style="margin-left: 8">to support international characters, the Notice Payload field MUST be encoded using UTF-8.  A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.  Note that when the Notice Payload contains multibyte characters, the number of characters will be less than the length value.  This field is not NUL terminated.  </dd>
+  <dd style="margin-left: 8">UTF-8, up to 128 octets.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
   <dt>A Length: Y</dt>
@@ -556,11 +558,15 @@
   <dd style="margin-left: 8"/>
   <dt>A Length: Z</dt>
   <dd style="margin-left: 8">this 8-bit field represents the length of the following Advise Value field in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
+  <dt></dt>
+  <dd style="margin-left: 8"/>
   <dt>Value 1:</dt>
   <dd style="margin-left: 8">UTF-8, up to 128 octets.  </dd>
 </dl>
 
-<p> Up to 16 Advise key-value pairs can be encoded.  </p>
+<p> Each ADVISORY message contains a single or no Notice.  Up to 16 Advise key-value pairs can be encoded in the ADVISORY message.  </p>
+<h1 id="rfc.section.2.2.1"><a href="#rfc.section.2.2.1">2.2.1.</a> Note on UTF-8</h1>
+<p id="rfc.section.2.2.1.p.1">To support international characters, the Notice Payload field MUST be encoded using UTF-8.  A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.  Note that when the Notice Payload contains multibyte characters, the number of characters will be less than the length value.  The UTF-8 fields are not NUL terminated.  </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#ops" id="ops">Operational Considerations</a></h1>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION</h1>
 <p id="rfc.section.3.1.p.1">This section is not meant to drive UI design decisions, but rather as scaffold to further discussion.  </p>

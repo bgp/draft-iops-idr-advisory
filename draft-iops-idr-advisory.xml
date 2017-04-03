@@ -158,10 +158,7 @@
                     </t>
                     <t></t>
                     <t hangText="Notice Payload:">
-                        to support international characters, the Notice Payload field MUST be encoded using UTF-8.
-						A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.
-						Note that when the Notice Payload contains multibyte characters, the number of characters will be less than the length value.
-						This field is not NUL terminated.
+                        UTF-8, up to 128 octets.
                     </t>
                     <t></t>
                     <t hangText="A Length: Y">
@@ -177,13 +174,22 @@
                         this 8-bit field represents the length of the following Advise Value field in octets.
                         The length value MUST range from 0 to 32 inclusive.
 				    </t>
+                    <t></t>
                     <t hangText="Value 1:">
                         UTF-8, up to 128 octets.
 				    </t>
                 </list>
-				Up to 16 Advise key-value pairs can be encoded.
+                Each ADVISORY message contains a single or no Notice.
+                Up to 16 Advise key-value pairs can be encoded in the ADVISORY message.
             </t>
-            
+            <section title="Note on UTF-8">
+                <t>
+                    To support international characters, the Notice Payload field MUST be encoded using UTF-8.
+                    A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.
+                    Note that when the Notice Payload contains multibyte characters, the number of characters will be less than the length value.
+                    The UTF-8 fields are not NUL terminated.
+                </t>
+            </section>
         </section>
         </section>
 
