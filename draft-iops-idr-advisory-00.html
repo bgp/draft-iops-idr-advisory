@@ -536,14 +536,24 @@
 <dl>
   <dt>N Length:</dt>
   <dd style="margin-left: 8">this 8-bit field represents the length of the Notice Payload field in octets.  The length value MUST range from 0 to 128 inclusive.  When the length value is zero, no Notice Payload field follows.  </dd>
+  <dt></dt>
+  <dd style="margin-left: 8"/>
   <dt>Notice Duration:</dt>
   <dd style="margin-left: 8">this 24-bit field represents the duration in seconds for which the Notice is valid.  When the Notice Length value is zero, this field is set to zero on transmission and ignored on receipt.  </dd>
+  <dt></dt>
+  <dd style="margin-left: 8"/>
   <dt>Notice Payload:</dt>
   <dd style="margin-left: 8">to support international characters, the Notice Payload field MUST be encoded using UTF-8.  A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.  Note that when the Notice Payload contains multibyte characters, the number of characters will be less than the length value.  This field is not NUL terminated.  </dd>
+  <dt></dt>
+  <dd style="margin-left: 8"/>
   <dt>A Length: Y</dt>
   <dd style="margin-left: 8">this 8-bit field represents the length of the following Advise Key field in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
-  <dt>Key 1</dt>
+  <dt></dt>
+  <dd style="margin-left: 8"/>
+  <dt>Key 1:</dt>
   <dd style="margin-left: 8">UTF-8, up to 32 octets.  </dd>
+  <dt></dt>
+  <dd style="margin-left: 8"/>
   <dt>A Length: Z</dt>
   <dd style="margin-left: 8">this 8-bit field represents the length of the following Advise Value field in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
   <dt>Value 1:</dt>
