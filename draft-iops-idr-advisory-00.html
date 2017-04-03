@@ -518,16 +518,16 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    N-length   |                N-duration                     |
+|    N-length   |                                               \
++-+-+-+-+-+-+-+-+                                               /
+/                         N-payload (max length 128)            \
+\                                                               /
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-\                                                               \
-/                   N-payload (max length 128)                  /
-\                                                               \
+|    A-length   |         A-key (max length 32)                 \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    A-length   |    A-key (max length 32)      |   A-length    |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    A'-length  |                                               /
 \                                                               \
-/                   A-value (max length 128)                    /
+/                         A-value (max length 128)              /
 \                                                               \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 \                                                               \
@@ -538,10 +538,6 @@
 <dl>
   <dt>N-length:</dt>
   <dd style="margin-left: 8">This 8-bit field represents the length of the NOTICE payload field in octets.  The length value MUST range from 0 to 128 inclusive.  When the length value is zero, no NOTICE payload field follows.  </dd>
-  <dt></dt>
-  <dd style="margin-left: 8"/>
-  <dt>N-duration:</dt>
-  <dd style="margin-left: 8">This 24-bit field represents the duration in seconds for which the NOTICE is valid.  When the NOTICE length value is zero, this field is set to zero on transmission and ignored on receipt.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
   <dt>N-payload:</dt>
@@ -556,7 +552,7 @@
   <dd style="margin-left: 8">ADVISE key, UTF-8, up to 32 octets.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>A-length:</dt>
+  <dt>A'-length:</dt>
   <dd style="margin-left: 8">This 8-bit field represents the length of the following ADVISE value field for this key, in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
@@ -700,7 +696,7 @@ Email: jgs@juniper.net
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| N-length: 31  |           N-duration: 0 seconds               |
+| N-length: 31  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                                                               |
 +                                                               +
