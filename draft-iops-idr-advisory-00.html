@@ -378,7 +378,6 @@
 <link href="#rfc.section.2" rel="Chapter" title="2 Protocol Extensions"/>
 <link href="#rfc.section.2.1" rel="Chapter" title="2.1 Support for ADVISORY Message Capability"/>
 <link href="#rfc.section.2.2" rel="Chapter" title="2.2 ADVISORY Message"/>
-<link href="#rfc.section.2.2.1" rel="Chapter" title="2.2.1 ADVISORY Message Example"/>
 <link href="#rfc.section.3" rel="Chapter" title="3 Operational Considerations"/>
 <link href="#rfc.section.3.1" rel="Chapter" title="3.1 CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION"/>
 <link href="#rfc.section.4" rel="Chapter" title="4 Error Handling"/>
@@ -389,6 +388,7 @@
 <link href="#rfc.references.2" rel="Chapter" title="7.2 Informative References"/>
 <link href="#rfc.appendix.A" rel="Chapter" title="A Contributors"/>
 <link href="#rfc.appendix.B" rel="Chapter" title="B Acknowledgements"/>
+<link href="#rfc.appendix.C" rel="Chapter" title="C ADVISORY Message Example"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
 
@@ -483,8 +483,7 @@
 <li>2.   <a href="#rfc.section.2">Protocol Extensions</a></li>
 <ul><li>2.1.   <a href="#rfc.section.2.1">Support for ADVISORY Message Capability</a></li>
 <li>2.2.   <a href="#rfc.section.2.2">ADVISORY Message</a></li>
-<ul><li>2.2.1.   <a href="#rfc.section.2.2.1">ADVISORY Message Example</a></li>
-</ul></ul><li>3.   <a href="#rfc.section.3">Operational Considerations</a></li>
+</ul><li>3.   <a href="#rfc.section.3">Operational Considerations</a></li>
 <ul><li>3.1.   <a href="#rfc.section.3.1">CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION</a></li>
 </ul><li>4.   <a href="#rfc.section.4">Error Handling</a></li>
 <li>5.   <a href="#rfc.section.5">IANA Considerations</a></li>
@@ -494,6 +493,7 @@
 <li>7.2.   <a href="#rfc.references.2">Informative References</a></li>
 </ul><li>Appendix A.   <a href="#rfc.appendix.A">Contributors</a></li>
 <li>Appendix B.   <a href="#rfc.appendix.B">Acknowledgements</a></li>
+<li>Appendix C.   <a href="#rfc.appendix.C">ADVISORY Message Example</a></li>
 <li><a href="#rfc.authors">Authors' Addresses</a></li>
 
 
@@ -528,69 +528,29 @@
 /               Value 1 (max length Z is 128)                   /
 \                                                               \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A' Length: Y' |  Key 2 (max length Y' is 32)  | A' Length: Z' |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 \                                                               \
-/               Value 2 (max length Z' is 128)                  /
-\                                                               \
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+/                               ...                             /
+</pre>
+<p/>
 
-</pre>
-<h1 id="rfc.section.2.2.1"><a href="#rfc.section.2.2.1">2.2.1.</a> ADVISORY Message Example</h1>
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| N Length: 31  |           Notice Duration: 0 seconds          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                                                               |
-+                                                               +
-|      Notice Payload: "We are prepending announcements"        |
-+                                                               +
-|                                                               |
-+                                               +-+-+-+-+-+-+-+-+
-|                                               |  A1 Length: 9 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                                                               |
-+                   A1 Key "noc email"                          +
-|                                                               |
-+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               | A1 Length: 11 |                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-|                                                               |
-+                        A1 Value: "noc@ntt.net"                +
-|                                                               |
-+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               | A2 Length: 10 |                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-|                                                               |
-+                     A2 Key "24/7 phone"                       +
-|                                                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A2 Length: 15 |                                               |
-+-+-+-+-+-+-+-+-+                                               +
-|                                                               |
-+                         A2 Value "+1 877 688-6625"            +
-|                                                               |
-+                                                               +
-|                                                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A3 Length: 10 |                                               |
-+                    A3 Key: "Service ID"                       +
-|                                                               |
-+                                               +-+-+-+-+-+-+-+-+
-|                                               | A3 Length: 13 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                                                               |
-+                                                               +
-|                   A3 Value: "USID 89024294"                   |
-+                                                               +
-|                                                               |
-+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               |
-+-+-+-+-+-+-+-+-+
-</pre>
-<p id="rfc.section.2.2.1.p.1">An example ADVISORY message: </p>
+<dl>
+  <dt>N Length:</dt>
+  <dd style="margin-left: 8">this 8-bit field represents the length of the Notice Payload field in octets.  The length value MUST range from 0 to 128 inclusive.  When the length value is zero, no Notice Payload field follows.  </dd>
+  <dt>Notice Duration:</dt>
+  <dd style="margin-left: 8">this 24-bit field represents the duration in seconds for which the Notice is valid.  When the Notice Length value is zero, this field is set to zero on transmission and ignored on receipt.  </dd>
+  <dt>Notice Payload:</dt>
+  <dd style="margin-left: 8">to support international characters, the Notice Payload field MUST be encoded using UTF-8.  A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.  Note that when the Notice Payload contains multibyte characters, the number of characters will be less than the length value.  This field is not NUL terminated.  </dd>
+  <dt>A Length: Y</dt>
+  <dd style="margin-left: 8">this 8-bit field represents the length of the following Advise Key field in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
+  <dt>Key 1</dt>
+  <dd style="margin-left: 8">UTF-8, up to 32 octets.  </dd>
+  <dt>A Length: Z</dt>
+  <dd style="margin-left: 8">this 8-bit field represents the length of the following Advise Value field in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
+  <dt>Value 1:</dt>
+  <dd style="margin-left: 8">UTF-8, up to 128 octets.  </dd>
+</dl>
+
+<p> Up to 16 Advise key-value pairs can be encoded.  </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#ops" id="ops">Operational Considerations</a></h1>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION</h1>
 <p id="rfc.section.3.1.p.1">This section is not meant to drive UI design decisions, but rather as scaffold to further discussion.  </p>
@@ -710,6 +670,61 @@ Email: jgs@juniper.net
 </pre>
 <h1 id="rfc.appendix.B"><a href="#rfc.appendix.B">Appendix B.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a></h1>
 <p id="rfc.section.B.p.1">The authors would like to gratefully acknowledge ...  </p>
+<h1 id="rfc.appendix.C"><a href="#rfc.appendix.C">Appendix C.</a> ADVISORY Message Example</h1>
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| N Length: 31  |           Notice Duration: 0 seconds          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                                                               +
+|      Notice Payload: "We are prepending announcements"        |
++                                                               +
+|                                                               |
++                                               +-+-+-+-+-+-+-+-+
+|                                               |  A1 Length: 9 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                   A1 Key "noc email"                          +
+|                                                               |
++               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               | A1 Length: 11 |                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+|                                                               |
++                        A1 Value: "noc@ntt.net"                +
+|                                                               |
++               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               | A2 Length: 10 |                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+|                                                               |
++                     A2 Key "24/7 phone"                       +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| A2 Length: 15 |                                               |
++-+-+-+-+-+-+-+-+                                               +
+|                                                               |
++                         A2 Value "+1 877 688-6625"            +
+|                                                               |
++                                                               +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| A3 Length: 10 |                                               |
++                    A3 Key: "Service ID"                       +
+|                                                               |
++                                               +-+-+-+-+-+-+-+-+
+|                                               | A3 Length: 13 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                                                               +
+|                   A3 Value: "USID 89024294"                   |
++                                                               +
+|                                                               |
++               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               |
++-+-+-+-+-+-+-+-+
+</pre>
+<p id="rfc.section.C.p.1">An example ADVISORY message: </p>
 <h1 id="rfc.authors">
   <a href="#rfc.authors">Authors' Addresses</a>
 </h1>

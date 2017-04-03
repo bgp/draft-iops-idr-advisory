@@ -78,7 +78,6 @@ Table of Contents
    2.  Protocol Extensions
      2.1.  Support for ADVISORY Message Capability
      2.2.  ADVISORY Message
-       2.2.1.  ADVISORY Message Example
    3.  Operational Considerations
      3.1.  CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION
    4.  Error Handling
@@ -89,6 +88,7 @@ Table of Contents
      7.2.  Informative References
    Appendix A.  Contributors
    Appendix B.  Acknowledgements
+   Appendix C.  ADVISORY Message Example
    Authors' Addresses
 
 1.  Introduction
@@ -156,69 +156,33 @@ Table of Contents
    /               Value 1 (max length Z is 128)                   /
    \                                                               \
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A' Length: Y' |  Key 2 (max length Y' is 32)  | A' Length: Z' |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    \                                                               \
-   /               Value 2 (max length Z' is 128)                  /
-   \                                                               \
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   /                               ...                             /
 
+   N Length:  this 8-bit field represents the length of the Notice
+      Payload field in octets.  The length value MUST range from 0 to
+      128 inclusive.  When the length value is zero, no Notice Payload
+      field follows.
+   Notice Duration:  this 24-bit field represents the duration in
+      seconds for which the Notice is valid.  When the Notice Length
+      value is zero, this field is set to zero on transmission and
+      ignored on receipt.
+   Notice Payload:  to support international characters, the Notice
+      Payload field MUST be encoded using UTF-8.  A receiving BGP
+      speaker MUST NOT interpret invalid UTF-8 sequences.  Note that
+      when the Notice Payload contains multibyte characters, the number
+      of characters will be less than the length value.  This field is
+      not NUL terminated.
+   A Length: Y  this 8-bit field represents the length of the following
+      Advise Key field in octets.  The length value MUST range from 0 to
+      32 inclusive.
+   Key 1  UTF-8, up to 32 octets.
+   A Length: Z  this 8-bit field represents the length of the following
+      Advise Value field in octets.  The length value MUST range from 0
+      to 32 inclusive.
+   Value 1:  UTF-8, up to 128 octets.
 
-2.2.1.  ADVISORY Message Example
-
-   An example ADVISORY message:
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | N Length: 31  |           Notice Duration: 0 seconds          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               |
-   +                                                               +
-   |      Notice Payload: "We are prepending announcements"        |
-   +                                                               +
-   |                                                               |
-   +                                               +-+-+-+-+-+-+-+-+
-   |                                               |  A1 Length: 9 |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               |
-   +                   A1 Key "noc email"                          +
-   |                                                               |
-   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |               | A1 Length: 11 |                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-   |                                                               |
-   +                        A1 Value: "noc@ntt.net"                +
-   |                                                               |
-   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |               | A2 Length: 10 |                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-   |                                                               |
-   +                     A2 Key "24/7 phone"                       +
-   |                                                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A2 Length: 15 |                                               |
-   +-+-+-+-+-+-+-+-+                                               +
-   |                                                               |
-   +                         A2 Value "+1 877 688-6625"            +
-   |                                                               |
-   +                                                               +
-   |                                                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A3 Length: 10 |                                               |
-   +                    A3 Key: "Service ID"                       +
-   |                                                               |
-   +                                               +-+-+-+-+-+-+-+-+
-   |                                               | A3 Length: 13 |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               |
-   +                                                               +
-   |                   A3 Value: "USID 89024294"                   |
-   +                                                               +
-   |                                                               |
-   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |               |
-   +-+-+-+-+-+-+-+-+
+   Up to 16 Advise key-value pairs can be encoded.
 
 3.  Operational Considerations
 
@@ -361,6 +325,62 @@ Appendix A.  Contributors
 Appendix B.  Acknowledgements
 
    The authors would like to gratefully acknowledge ...
+
+Appendix C.  ADVISORY Message Example
+
+   An example ADVISORY message:
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | N Length: 31  |           Notice Duration: 0 seconds          |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   +                                                               +
+   |      Notice Payload: "We are prepending announcements"        |
+   +                                                               +
+   |                                                               |
+   +                                               +-+-+-+-+-+-+-+-+
+   |                                               |  A1 Length: 9 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   +                   A1 Key "noc email"                          +
+   |                                                               |
+   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |               | A1 Length: 11 |                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+   |                                                               |
+   +                        A1 Value: "noc@ntt.net"                +
+   |                                                               |
+   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |               | A2 Length: 10 |                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+   |                                                               |
+   +                     A2 Key "24/7 phone"                       +
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | A2 Length: 15 |                                               |
+   +-+-+-+-+-+-+-+-+                                               +
+   |                                                               |
+   +                         A2 Value "+1 877 688-6625"            +
+   |                                                               |
+   +                                                               +
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | A3 Length: 10 |                                               |
+   +                    A3 Key: "Service ID"                       +
+   |                                                               |
+   +                                               +-+-+-+-+-+-+-+-+
+   |                                               | A3 Length: 13 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   +                                                               +
+   |                   A3 Value: "USID 89024294"                   |
+   +                                                               +
+   |                                                               |
+   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |               |
+   +-+-+-+-+-+-+-+-+
 
 Authors' Addresses
 
