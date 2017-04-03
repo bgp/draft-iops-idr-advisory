@@ -148,40 +148,41 @@ Table of Contents
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |    N-length   |                                               \
    +-+-+-+-+-+-+-+-+                                               /
-   /                         N-payload (max length 128)            \
+   /                         NOTICE payload (max length 128)       \
    \                                                               /
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |    A-length   |         A-key (max length 32)                 \
+   |  ADVISE K-len |         ADVISE key (max length 32)            \
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |    A'-length  |                                               /
-   \                                                               \
-   /                         A-value (max length 128)              /
+   |  ADIVSE V-len |                                               /
+   +-+-+-+-+-+-+-+-+                                               \
+   /                         ADVISE value (max length 128)         /
    \                                                               \
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    \                                                               \
-   /                               ...                             /
+   /           ... additional Advise key-value pairs ...           /
 
-   N-length:  This 8-bit field represents the length of the NOTICE
+   N-Length:  This 8-bit field represents the length of the NOTICE
       payload field in octets.  The length value MUST range from 0 to
       128 inclusive.  When the length value is zero, no NOTICE payload
       field follows.
 
-   N-payload:  UTF-8, up to 128 octets.
+   NOTICE payload:  UTF-8, up to 128 octets.
 
-   A-length:  This 8-bit field represents the length of the next ADVISE
-      key field in octets.  The length value MUST range from 0 to 32
-      inclusive.
+   ADVISE K-len:  This 8-bit field represents the length of the next
+      ADVISE key field in octets.  The length value MUST range from 0 to
+      32 inclusive.
 
-   A-key:  ADVISE key, UTF-8, up to 32 octets.
+   ADVISE key:  ADVISE key, UTF-8, up to 32 octets.
 
-   A'-length:  This 8-bit field represents the length of the following
-      ADVISE value field for this key, in octets.  The length value MUST
-      range from 0 to 32 inclusive.
+   ADIVSE V-len:  This 8-bit field represents the length of the
+      following ADVISE value field for this key, in octets.  The length
+      value MUST range from 0 to 32 inclusive.
 
-   A-value:  ADVISE value for this key, UTF-8, up to 128 octets.
+   ADVISE value:  ADVISE value for this key, UTF-8, up to 128 octets.
 
-   Each ADVISORY message contains zero or more NOTICE payloads.  Up to
-   16 ADVISE key-value pairs can be encoded in the ADVISORY message.
+   Each ADVISORY message contains either no NOTICE payload, or a single
+   NOTICE payload.  Optionally, up to 16 ADVISE key-value pairs can be
+   encoded in the ADVISORY message.
 
 2.2.1.  Note on UTF-8
 
@@ -352,55 +353,53 @@ Appendix C.  ADVISORY Message Example
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | N-length: 31  |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | N-length: 31  |                                               |
+   +---------------+                                               +
+   |                                                               |
+   +           N-payload: "We are prepending announcements"        +
    |                                                               |
    +                                                               +
-   |           N-payload: "We are prepending announcements"        |
-   +                                                               +
    |                                                               |
-   +                                               +-+-+-+-+-+-+-+-+
-   |                                               |  A1 length: 9 |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   +                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   +                               |  A1 length: 9 |               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               +
    |                                                               |
    +                   A-key: "noc email"                          +
    |                                                               |
-   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |               | A-length: 11  |                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | A-length: 11  |                                               |
+   +-+-+-+-+-+-+-+-+                                               +
    |                                                               |
    +                        A-value: "noc@ntt.net"                 +
    |                                                               |
-   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |               | A-length: 10  |                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | A-length: 10  |                                               |
+   +-+-+-+-+-+-+-+-+                                               +
    |                                                               |
-   +                     A-key: "24/7 phone"                       +
-   |                                                               |
+   +                     A-key: "24/7 phone"       +-+-+-+-+-+-+-+-+
+   |                                               | A-length: 15  |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    | A-length: 15  |                                               |
    +-+-+-+-+-+-+-+-+                                               +
    |                                                               |
    +                    A-value: "+1 877 688-6625"                 +
    |                                                               |
-   +                                                               +
-   |                                                               |
+   +                                               +-+-+-+-+-+-+-+-+
+   |                                               |  A-length: 10 |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A-length: 10  |                                               |
-   +-+-+-+-+-+-+-+-+                                               +
+   |                                                               |
+   +                                                               +
    +                    A-key:  "service ID"                       +
    |                                                               |
-   +                                               +-+-+-+-+-+-+-+-+
-   |                                               | A-l ength: 13 |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   +                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                               | A-l ength: 13 |               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               +
    |                                                               |
    +                                                               +
    |                   A-value: "USID 89024294"                    |
    +                                                               +
    |                                                               |
-   +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |               |
-   +-+-+-+-+-+-+-+-+
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 Authors' Addresses
 

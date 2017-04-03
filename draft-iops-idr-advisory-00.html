@@ -520,47 +520,47 @@
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |    N-length   |                                               \
 +-+-+-+-+-+-+-+-+                                               /
-/                         N-payload (max length 128)            \
+/                         NOTICE payload (max length 128)       \
 \                                                               /
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    A-length   |         A-key (max length 32)                 \
+|  ADVISE K-len |         ADVISE key (max length 32)            \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    A'-length  |                                               /
-\                                                               \
-/                         A-value (max length 128)              /
+|  ADIVSE V-len |                                               /
++-+-+-+-+-+-+-+-+                                               \
+/                         ADVISE value (max length 128)         /
 \                                                               \
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 \                                                               \
-/                               ...                             /
+/           ... additional Advise key-value pairs ...           /
 </pre>
 <p/>
 
 <dl>
-  <dt>N-length:</dt>
+  <dt>N-Length:</dt>
   <dd style="margin-left: 8">This 8-bit field represents the length of the NOTICE payload field in octets.  The length value MUST range from 0 to 128 inclusive.  When the length value is zero, no NOTICE payload field follows.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>N-payload:</dt>
+  <dt>NOTICE payload:</dt>
   <dd style="margin-left: 8">UTF-8, up to 128 octets.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>A-length:</dt>
+  <dt>ADVISE K-len:</dt>
   <dd style="margin-left: 8">This 8-bit field represents the length of the next ADVISE key field in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>A-key:</dt>
+  <dt>ADVISE key:</dt>
   <dd style="margin-left: 8">ADVISE key, UTF-8, up to 32 octets.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>A'-length:</dt>
+  <dt>ADIVSE V-len:</dt>
   <dd style="margin-left: 8">This 8-bit field represents the length of the following ADVISE value field for this key, in octets.  The length value MUST range from 0 to 32 inclusive.  </dd>
   <dt></dt>
   <dd style="margin-left: 8"/>
-  <dt>A-value:</dt>
+  <dt>ADVISE value:</dt>
   <dd style="margin-left: 8">ADVISE value for this key, UTF-8, up to 128 octets.  </dd>
 </dl>
 
-<p> Each ADVISORY message contains zero or more NOTICE payloads.  Up to 16 ADVISE key-value pairs can be encoded in the ADVISORY message.  </p>
+<p> Each ADVISORY message contains either no NOTICE payload, or a single NOTICE payload.  Optionally, up to 16 ADVISE key-value pairs can be encoded in the ADVISORY message.  </p>
 <h1 id="rfc.section.2.2.1"><a href="#rfc.section.2.2.1">2.2.1.</a> Note on UTF-8</h1>
 <p id="rfc.section.2.2.1.p.1">To support international characters, fields MUST be encoded using UTF-8.  A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.  Note that when a field contains multibyte characters, the number of characters will be less than the length value.  Fields containing UTF-8 are not NUL terminated.  </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#ops" id="ops">Operational Considerations</a></h1>
@@ -696,55 +696,53 @@ Email: jgs@juniper.net
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| N-length: 31  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| N-length: 31  |                                               |
++---------------+                                               +
+|                                                               |
++           N-payload: "We are prepending announcements"        + 
 |                                                               |
 +                                                               +
-|           N-payload: "We are prepending announcements"        |
-+                                                               +
 |                                                               |
-+                                               +-+-+-+-+-+-+-+-+
-|                                               |  A1 length: 9 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++                               |  A1 length: 9 |               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               +
 |                                                               |
 +                   A-key: "noc email"                          +
 |                                                               |
-+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               | A-length: 11  |                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| A-length: 11  |                                               |
++-+-+-+-+-+-+-+-+                                               +
 |                                                               |
 +                        A-value: "noc@ntt.net"                 +
 |                                                               |
-+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               | A-length: 10  |                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| A-length: 10  |                                               |
++-+-+-+-+-+-+-+-+                                               +
 |                                                               |
-+                     A-key: "24/7 phone"                       +
-|                                                               |
++                     A-key: "24/7 phone"       +-+-+-+-+-+-+-+-+
+|                                               | A-length: 15  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | A-length: 15  |                                               |
 +-+-+-+-+-+-+-+-+                                               +
 |                                                               |
 +                    A-value: "+1 877 688-6625"                 +
 |                                                               |
-+                                                               +
-|                                                               |
++                                               +-+-+-+-+-+-+-+-+
+|                                               |  A-length: 10 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A-length: 10  |                                               |
-+-+-+-+-+-+-+-+-+                                               +
+|                                                               |
++                                                               +
 +                    A-key:  "service ID"                       +
 |                                                               |
-+                                               +-+-+-+-+-+-+-+-+
-|                                               | A-l ength: 13 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                               | A-l ength: 13 |               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               +
 |                                                               |
 +                                                               +
 |                   A-value: "USID 89024294"                    |
 +                                                               +
 |                                                               |
-+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               |
-+-+-+-+-+-+-+-+-+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 <p id="rfc.section.C.p.1">An example ADVISORY message: </p>
 <h1 id="rfc.authors">
