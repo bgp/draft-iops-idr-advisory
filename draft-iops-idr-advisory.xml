@@ -117,7 +117,7 @@
             <section anchor="message" title="ADVISORY Message">
                 <t>
                     An ADVISORY message is composed of an optional NOTICE, and optionally one or more ADVISE key-value pairs.
-                    An ADVISORY message MUST NOT contain more than 16 Advise key-value pairs.
+                    An ADVISORY message MUST NOT contain more than 16 ADVISE key-value pairs.
                     Each key and each value field MUST be preceded by a 1 octet Length field to indicate the length of the subsequent field.
                     ADVISE key fields have a REQUIRED maximum length of 32 octets.
                     ADVISE value fields have a REQUIRED maximum length of 128 octets.
@@ -183,7 +183,7 @@
 				    </t>
                     <t></t>
                     <t hangText="A-value:">
-                        Advise value for this key, UTF-8, up to 128 octets.
+                        ADVISE value for this key, UTF-8, up to 128 octets.
 				    </t>
                 </list>
                 Each ADVISORY message contains zero or more NOTICE payloads.
