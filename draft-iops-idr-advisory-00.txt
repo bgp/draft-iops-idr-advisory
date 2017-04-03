@@ -98,7 +98,7 @@ Table of Contents
    human-oriented information specific to the BGP session through which
    the ADVISORY message is distributed.  In concept this enhancement is
    similar to the dissemination of plan files [RFC1288], or write(1)
-   [IEEE.1003.1_2013_EDITION] and not intended for real-time interactive
+   [IEEE.1003.1] and not intended for real-time interactive
    communication.  The ADVISORY message is specifically meant to aid
    root cause analysis and bootstrapping out-of-band communication
    between operators by allowing operators to signal key information
@@ -185,35 +185,35 @@ Table of Contents
    +                   A1 Key "noc email"                          +
    |                                                               |
    +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |               | A2 Length: 11 |                               |
+   |               | A1 Length: 11 |                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
    |                                                               |
-   +                        A2 Value: "noc@ntt.net"                +
+   +                        A1 Value: "noc@ntt.net"                +
    |                                                               |
    +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |               | A3 Length: 10 |                               |
+   |               | A2 Length: 10 |                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
    |                                                               |
-   +                     A3 Key "24/7 phone"                       +
+   +                     A2 Key "24/7 phone"                       +
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A4 Length: 15 |                                               |
+   | A2 Length: 15 |                                               |
    +-+-+-+-+-+-+-+-+                                               +
    |                                                               |
-   +                         A4 Value "+1 877 688-6625"            +
+   +                         A2 Value "+1 877 688-6625"            +
    |                                                               |
    +                                                               +
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | A5 Length: 10 |                                               |
-   +                    A5 Key: "Service ID"                       +
+   | A3 Length: 10 |                                               |
+   +                    A3 Key: "Service ID"                       +
    |                                                               |
    +                                               +-+-+-+-+-+-+-+-+
-   |                                               | A5 Length: 13 |
+   |                                               | A3 Length: 13 |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
    +                                                               +
-   |                A5 Value: "USID 89024294"                      |
+   |                   A3 Value: "USID 89024294"                   |
    +                                                               +
    |                                                               |
    +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -233,9 +233,10 @@ Table of Contents
    router bgp 64496
      bgp router-id 10.0.0.1
      neighbor 10.0.0.2 remote-as 64497
-     neighbor 10.0.0.2 note "noc email" "noc@ntt.net"
-     neighbor 10.0.0.2 note "24/7 phone" "+1 877 688-6625"
-     neighbor 10.0.0.2 note "Service ID" "USID 89024294"
+     neighbor 10.0.0.2 notice "We are prepending announcements"
+     neighbor 10.0.0.2 advise "noc email" "noc@ntt.net"
+     neighbor 10.0.0.2 advise "24/7 phone" "+1 877 688-6625"
+     neighbor 10.0.0.2 advise "Service ID" "USID 89024294"
      address-family ipv4 unicast
        neighbor 10.0.0.2 next-hop-self
        neighbor 10.0.0.2 route-map export-to-AS64497 out
@@ -246,6 +247,8 @@ Table of Contents
    RouterB# show bgp neighbor 10.0.0.2 advisory
 
      Latest ADVISORY from 10.0.0.2 / AS 64496:
+
+     NOTICE: We are prepending announcements
 
        noc email    :  noc@ntt.net
        24/7 phone   :  +1 877 688-6625
@@ -322,7 +325,7 @@ Table of Contents
 
 7.2.  Informative References
 
-   [IEEE.1003.1_2013_EDITION]
+   [IEEE.1003.1]
               IEEE, "Standard for Information Technology Portable
               Operating System Interface (POSIX(R)) Base Specifications,
               Issue 7", IEEE 1003.1, 2013 Edition,

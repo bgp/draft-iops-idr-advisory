@@ -500,7 +500,7 @@
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#intro" id="intro">Introduction</a></h1>
-<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is distributed.  In concept this enhancement is similar to the dissemination of <a href="#RFC1288">plan files</a> <cite title="NONE">[RFC1288]</cite>, or <a href="#IEEE.1003.1_2013_EDITION">write(1)</a> <cite title="NONE">[IEEE.1003.1_2013_EDITION]</cite> and not intended for real-time interactive communication.  The ADVISORY message is specifically meant to aid root cause analysis and bootstrapping out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.  </p>
+<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is distributed.  In concept this enhancement is similar to the dissemination of <a href="#RFC1288">plan files</a> <cite title="NONE">[RFC1288]</cite>, or <a href="#IEEE.1003.1">write(1)</a> <cite title="NONE">[IEEE.1003.1]</cite> and not intended for real-time interactive communication.  The ADVISORY message is specifically meant to aid root cause analysis and bootstrapping out-of-band communication between operators by allowing operators to signal key information over the in-band communication channel that is the BGP session.  </p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#protextensions" id="protextensions">Protocol Extensions</a></h1>
 <p id="rfc.section.2.p.1">The BGP protocol extensions introduced in this document include the definition of a new BGP capability, named "Support for ADVISORY Message Capability", and the specification of the ADVISORY message.  </p>
 <h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#cap" id="cap">Support for ADVISORY Message Capability</a></h1>
@@ -555,35 +555,35 @@
 +                   A1 Key "noc email"                          +
 |                                                               |
 +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               | A2 Length: 11 |                               |
+|               | A1 Length: 11 |                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
 |                                                               |
-+                        A2 Value: "noc@ntt.net"                +
++                        A1 Value: "noc@ntt.net"                +
 |                                                               |
 +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               | A3 Length: 10 |                               |
+|               | A2 Length: 10 |                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
 |                                                               |
-+                     A3 Key "24/7 phone"                       +
++                     A2 Key "24/7 phone"                       +
 |                                                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A4 Length: 15 |                                               |
+| A2 Length: 15 |                                               |
 +-+-+-+-+-+-+-+-+                                               +
 |                                                               |
-+                         A4 Value "+1 877 688-6625"            +
++                         A2 Value "+1 877 688-6625"            +
 |                                                               |
 +                                                               +
 |                                                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| A5 Length: 10 |                                               |
-+                    A5 Key: "Service ID"                       +
+| A3 Length: 10 |                                               |
++                    A3 Key: "Service ID"                       +
 |                                                               |
 +                                               +-+-+-+-+-+-+-+-+
-|                                               | A5 Length: 13 |
+|                                               | A3 Length: 13 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                                                               |
 +                                                               +
-|                A5 Value: "USID 89024294"                      |
+|                   A3 Value: "USID 89024294"                   |
 +                                                               +
 |                                                               |
 +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -602,9 +602,10 @@
 router bgp 64496
   bgp router-id 10.0.0.1
   neighbor 10.0.0.2 remote-as 64497
-  neighbor 10.0.0.2 note "noc email" "noc@ntt.net"
-  neighbor 10.0.0.2 note "24/7 phone" "+1 877 688-6625"
-  neighbor 10.0.0.2 note "Service ID" "USID 89024294"
+  neighbor 10.0.0.2 notice "We are prepending announcements"
+  neighbor 10.0.0.2 advise "noc email" "noc@ntt.net"
+  neighbor 10.0.0.2 advise "24/7 phone" "+1 877 688-6625"
+  neighbor 10.0.0.2 advise "Service ID" "USID 89024294"
   address-family ipv4 unicast
     neighbor 10.0.0.2 next-hop-self
     neighbor 10.0.0.2 route-map export-to-AS64497 out
@@ -615,7 +616,9 @@ router bgp 64496
 RouterB# show bgp neighbor 10.0.0.2 advisory
   
   Latest ADVISORY from 10.0.0.2 / AS 64496:
-   
+
+  NOTICE: We are prepending announcements
+
     noc email    :  noc@ntt.net
     24/7 phone   :  +1 877 688-6625
     Service ID   :  USID 89024294
@@ -670,7 +673,7 @@ RouterB#
   <tbody>
     <tr>
       <td class="reference">
-        <b id="IEEE.1003.1_2013_EDITION">[IEEE.1003.1_2013_EDITION]</b>
+        <b id="IEEE.1003.1">[IEEE.1003.1]</b>
       </td>
       <td class="top"><a>IEEE</a>, "<a href="http://ieeexplore.ieee.org/servlet/opac?punumber=6506089">Standard for Information Technology Portable Operating System Interface (POSIX(R)) Base Specifications, Issue 7</a>", IEEE 1003.1, 2013 Edition, DOI 10.1109/ieeestd.2013.6506091, April 2013.</td>
     </tr>
