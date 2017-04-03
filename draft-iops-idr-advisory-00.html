@@ -608,7 +608,40 @@ ADVISORY Message statistics:
 RouterB#
 </pre>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#error" id="error">Error Handling</a></h1>
-<p id="rfc.section.4.p.1">This document defines a new NOTIFICATION error code: "ADVISORY Message Error".  The following new error subcode is defined as well: "Invalid Message Length".  </p>
+<p id="rfc.section.4.p.1">This document defines a new NOTIFICATION error code: "ADVISORY Message Error".  The following new error subcodes are defined: </p>
+<div id="rfc.table.1"/>
+<div id="error_subcodes"/>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+  <caption>ADVISORY Message Error subcodes</caption>
+  <thead>
+    <tr>
+      <th class="left">name</th>
+      <th class="left">value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">Invalid ADVISORY Message Length</td>
+      <td class="left">TBD</td>
+    </tr>
+    <tr>
+      <td class="left">Invalid ADVISORY NOTICE Length</td>
+      <td class="left">TBD</td>
+    </tr>
+    <tr>
+      <td class="left">Invalid ADVISORY ADVISE Key Length</td>
+      <td class="left">TBD</td>
+    </tr>
+    <tr>
+      <td class="left">Invalid ADVISORY ADVISE Value Length</td>
+      <td class="left">TBD</td>
+    </tr>
+    <tr>
+      <td class="left">Garbage ADVISORY Trailing Data</td>
+      <td class="left">TBD</td>
+    </tr>
+  </tbody>
+</table>
 <p id="rfc.section.4.p.2">The error handling specified in this section is applicable only when a BGP speaker has received the "Support for ADVISORY Message Capability" from a peer.  </p>
 <p id="rfc.section.4.p.3">All errors detected while processing the ADVISORY message MUST be indicated by sending the NOTIFICATION message with the Error Code ADVISORY Message Error.  The error subcode elaborates on the specific nature of the error.  </p>
 <p id="rfc.section.4.p.4">A zero-length ADVISORY message MUST NOT be considered malformed.  </p>

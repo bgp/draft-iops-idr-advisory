@@ -248,8 +248,17 @@ RouterB#
         <section anchor="error" title="Error Handling">
             <t>
                 This document defines a new NOTIFICATION error code: "ADVISORY Message Error".
-                The following new error subcode is defined as well: "Invalid Message Length".
+                The following new error subcodes are defined:
             </t>
+            <texttable anchor="error_subcodes" title="ADVISORY Message Error subcodes">
+                <ttcol>name</ttcol>
+                <ttcol>value</ttcol>
+                <c>Invalid ADVISORY Message Length</c><c>TBD</c>
+                <c>Invalid ADVISORY NOTICE Length</c><c>TBD</c>
+                <c>Invalid ADVISORY ADVISE Key Length</c><c>TBD</c>
+                <c>Invalid ADVISORY ADVISE Value Length</c><c>TBD</c>
+                <c>Garbage ADVISORY Trailing Data</c><c>TBD</c>
+            </texttable>
             <t>
                 The error handling specified in this section is applicable only when a BGP speaker has received the "Support for ADVISORY Message Capability" from a peer.
             </t>

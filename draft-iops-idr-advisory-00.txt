@@ -244,8 +244,19 @@ RouterB#
 4.  Error Handling
 
    This document defines a new NOTIFICATION error code: "ADVISORY
-   Message Error".  The following new error subcode is defined as well:
-   "Invalid Message Length".
+   Message Error".  The following new error subcodes are defined:
+
+             +--------------------------------------+-------+
+             | name                                 | value |
+             +--------------------------------------+-------+
+             | Invalid ADVISORY Message Length      | TBD   |
+             | Invalid ADVISORY NOTICE Length       | TBD   |
+             | Invalid ADVISORY ADVISE Key Length   | TBD   |
+             | Invalid ADVISORY ADVISE Value Length | TBD   |
+             | Garbage ADVISORY Trailing Data       | TBD   |
+             +--------------------------------------+-------+
+
+                 Table 1: ADVISORY Message Error subcodes
 
    The error handling specified in this section is applicable only when
    a BGP speaker has received the "Support for ADVISORY Message
