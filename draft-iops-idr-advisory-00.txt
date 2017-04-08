@@ -301,9 +301,12 @@ RouterB#
 
 6.  Security Considerations
 
-   This document uses UTF-8 encoding for the ADVISORY message.  Look at
-   the security section here [I-D.ietf-idr-shutdown].  UNICODE TR36
-   [UTR36] is important.
+   This specification uses UTF-8 encoding for certain fields of the
+   ADVISORY message.  Implementers would do well to incorporate
+   recommendations from UNICODE TR36 [UTR36].
+
+   Use of this protocol enhancement has the same security considerations
+   as [I-D.ietf-idr-shutdown].
 
 7.  References
 
