@@ -398,7 +398,7 @@
 
   <meta name="dct.creator" content="Snijders, J., Freedman, D., Heitz, J., and D. Sharp" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-iops-idr-bgp-advisory-message-00" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-4-3" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-4-8" />
   <meta name="dct.abstract" content="This document defines the BGP-4 ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of session-specific human-oriented information between network operators.  " />
   <meta name="description" content="This document defines the BGP-4 ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of session-specific human-oriented information between network operators.  " />
 
@@ -422,7 +422,7 @@
   <td class="right">D. Freedman</td>
 </tr>
 <tr>
-  <td class="left">Expires: October 5, 2017</td>
+  <td class="left">Expires: October 10, 2017</td>
   <td class="right">Claranet</td>
 </tr>
 <tr>
@@ -443,7 +443,7 @@
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">April 3, 2017</td>
+  <td class="right">April 8, 2017</td>
 </tr>
 
     	
@@ -467,7 +467,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on October 5, 2017.</p>
+<p>This Internet-Draft will expire on October 10, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -502,15 +502,16 @@
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#intro" id="intro">Introduction</a></h1>
-<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is transmitted.  In concept this enhancement is similar to the dissemination of <a href="#RFC1288">plan files</a> <cite title="NONE">[RFC1288]</cite>, or <a href="#IEEE.1003.1">write(1)</a> <cite title="NONE">[IEEE.1003.1]</cite> and not intended for real-time interactive communication.  ADVISORY messages are intended to aid root cause analysis and bootstrapping of out-of-band communication between operators by allowing them to signal key information over a known (and potentially trusted) in-band communication channel that is an existing BGP session.  </p>
+<p id="rfc.section.1.p.1">This document defines the <a href="#RFC4271">BGP-4</a> <cite title="NONE">[RFC4271]</cite> ADVISORY Message and Support for ADVISORY Message Capability to facilitate the exchange of human-oriented information specific to the BGP session through which the ADVISORY message is transmitted.  ADVISORY messages are intended to aid root cause analysis and bootstrapping of out-of-band communication between operators by allowing them to signal key information over the known (and potentially trusted) in-band communication channel that is an existing BGP session.  </p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#protextensions" id="protextensions">Protocol Extensions</a></h1>
 <p id="rfc.section.2.p.1">The BGP protocol extensions introduced in this document include the definition of a new BGP capability, named "Support for ADVISORY Message Capability", and the specification of the ADVISORY message.  </p>
 <h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#cap" id="cap">Support for ADVISORY Message Capability</a></h1>
-<p id="rfc.section.2.1.p.1">The "Support for ADVISORY Message Capability" is a new <a href="#RFC5492">BGP capability</a> <cite title="NONE">[RFC5492]</cite>.  The Length field of this capability MUST be set to 1.  The Capability value MUST be set to the version of the ADVISORY message supported by the BGP speaker.  This document only defines ADVISORY version 1 messages.  </p>
-<p id="rfc.section.2.1.p.2">By advertising this capability to a peer, a BGP speaker conveys to the peer that the speaker supports receiving ADVISORY messages, indicates what version of the ADVISORY message it supports, and supports the related procedures described in this document.  </p>
+<p id="rfc.section.2.1.p.1">The "Support for ADVISORY Message Capability" is a new <a href="#RFC5492">BGP capability</a> <cite title="NONE">[RFC5492]</cite>.  The Length field of this capability MUST be set to 1.  The Capability value MUST be set to the highest version of the ADVISORY message supported by the BGP speaker.  This document only defines ADVISORY version 1 messages.  </p>
+<p id="rfc.section.2.1.p.2">By advertising this capability to a peer, a BGP speaker conveys to the peer that the speaker supports receiving ADVISORY messages, indicates what version of the ADVISORY message it supports, and indicates that it supports the related procedures described in this document.  </p>
 <h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> <a href="#message" id="message">ADVISORY Message</a></h1>
 <p id="rfc.section.2.2.p.1">An ADVISORY message is composed of an optional NOTICE, and optionally one or more ADVISE key-value pairs.  An ADVISORY message MUST NOT contain more than 16 ADVISE key-value pairs.  Each key and each value field MUST be preceded by a 1 octet Length field to indicate the length of the subsequent field.  ADVISE key fields have a REQUIRED maximum length of 32 octets.  ADVISE value fields have a REQUIRED maximum length of 128 octets.  To support international characters, all string fields MUST be encoded using UTF-8.  Fields are not NUL terminated.  There is no significance to the order of key-value pairs.  </p>
-<p id="rfc.section.2.2.p.2">A zero-length ADVISORY message can be send to clear any ADVISORY information on the remote side.  </p>
+<p id="rfc.section.2.2.p.2">In concept, ADVISE data is similar to the dissemination of plan files.  When sending a new ADVISORY message to transmit a new NOTICE, the sender MUST repeat all configured ADVISE data.  Phrased differently: a new ADVISORY message completely replaces any prior ADVISORY message.  </p>
+<p id="rfc.section.2.2.p.3">A zero-length ADVISORY message can be send to clear any ADVISORY information on the remote side.  </p>
 <p/>
 
 <p>ADVISORY message format</p>
@@ -562,7 +563,7 @@
 
 <p> Each ADVISORY message contains either no NOTICE payload, or a single NOTICE payload.  Optionally, up to 16 ADVISE key-value pairs can be encoded in the ADVISORY message.  </p>
 <h1 id="rfc.section.2.2.1"><a href="#rfc.section.2.2.1">2.2.1.</a> Note on UTF-8</h1>
-<p id="rfc.section.2.2.1.p.1">To support international characters, fields MUST be encoded using UTF-8.  A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.  Note that when a field contains multibyte characters, the number of characters will be less than the length value.  Fields containing UTF-8 are not NUL terminated.  </p>
+<p id="rfc.section.2.2.1.p.1">To support international characters, fields MUST be encoded using UTF-8.  A receiving BGP speaker MUST NOT interpret invalid UTF-8 sequences.  Note that when a field contains multibyte characters, the number of characters will be less than the length value.  Fields are not NUL terminated.  </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#ops" id="ops">Operational Considerations</a></h1>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> CLI / UI Mock-up - RFC EDITOR: REMOVE BEFORE PUBLICATION</h1>
 <p id="rfc.section.3.1.p.1">This section is not meant to drive UI design decisions, but rather as scaffold to further discussion.  </p>
@@ -612,7 +613,8 @@ ADVISORY Message statistics:
 RouterB#
 </pre>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#error" id="error">Error Handling</a></h1>
-<p id="rfc.section.4.p.1">This document defines a new NOTIFICATION error code: "ADVISORY Message Error".  The following new error subcodes are defined: </p>
+<p id="rfc.section.4.p.1">The following section assumes HARD error failure, but another option is to fail softly. For WG discussion.  </p>
+<p id="rfc.section.4.p.2">This document defines a new NOTIFICATION error code: "ADVISORY Message Error".  The following new error subcodes are defined: </p>
 <div id="rfc.table.1"/>
 <div id="error_subcodes"/>
 <table cellpadding="3" cellspacing="0" class="tt full center">
@@ -640,15 +642,11 @@ RouterB#
       <td class="left">Invalid ADVISORY ADVISE Value Length</td>
       <td class="center">TBD</td>
     </tr>
-    <tr>
-      <td class="left">Garbage ADVISORY Trailing Data</td>
-      <td class="center">TBD</td>
-    </tr>
   </tbody>
 </table>
-<p id="rfc.section.4.p.2">The error handling specified in this section is applicable only when a BGP speaker has received the "Support for ADVISORY Message Capability" from a peer.  </p>
-<p id="rfc.section.4.p.3">All errors detected while processing the ADVISORY message MUST be indicated by sending the NOTIFICATION message with the Error Code ADVISORY Message Error.  The error subcode elaborates on the specific nature of the error.  </p>
-<p id="rfc.section.4.p.4">A zero-length ADVISORY message MUST NOT be considered malformed.  </p>
+<p id="rfc.section.4.p.3">The error handling specified in this section is applicable only when a BGP speaker has received the "Support for ADVISORY Message Capability" from a peer.  </p>
+<p id="rfc.section.4.p.4">All errors detected while processing the ADVISORY message MUST be indicated by sending the NOTIFICATION message with the Error Code ADVISORY Message Error.  The error subcode elaborates on the specific nature of the error.  </p>
+<p id="rfc.section.4.p.5">A zero-length ADVISORY message MUST NOT be considered malformed.  </p>
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#iana" id="iana">IANA Considerations</a></h1>
 <p id="rfc.section.5.p.1">IANA is requested to assign value TBD1 (ADVISORY) in the "BGP Message Types" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.  </p>
 <p id="rfc.section.5.p.2">IANA is requested to assign value TBD2 (ADVISORY Message Error) in the "BGP Error (Notification) Codes" subregistry under the "Border Gateway Protocol (BGP) Parameters" registry.  </p>
@@ -691,18 +689,6 @@ RouterB#
     </tr>
     <tr>
       <td class="reference">
-        <b id="IEEE.1003.1">[IEEE.1003.1]</b>
-      </td>
-      <td class="top"><a>IEEE</a>, "<a href="http://ieeexplore.ieee.org/servlet/opac?punumber=6506089">Standard for Information Technology Portable Operating System Interface (POSIX(R)) Base Specifications, Issue 7</a>", IEEE 1003.1, 2013 Edition, DOI 10.1109/ieeestd.2013.6506091, April 2013.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC1288">[RFC1288]</b>
-      </td>
-      <td class="top"><a>Zimmerman, D.</a>, "<a href="http://tools.ietf.org/html/rfc1288">The Finger User Information Protocol</a>", RFC 1288, DOI 10.17487/RFC1288, December 1991.</td>
-    </tr>
-    <tr>
-      <td class="reference">
         <b id="UTR36">[UTR36]</b>
       </td>
       <td class="top"><a>Davis, M.</a> and <a>M. Suignard</a>, "<a href="http://unicode.org/reports/tr36/">Unicode Security Considerations</a>", Unicode Technical Report #36, August 2010.</td>
@@ -727,7 +713,7 @@ Juniper Networks
 Email: jgs@juniper.net
 </pre>
 <h1 id="rfc.appendix.B"><a href="#rfc.appendix.B">Appendix B.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a></h1>
-<p id="rfc.section.B.p.1">The authors would like to gratefully acknowledge ...  </p>
+<p id="rfc.section.B.p.1">The authors would like to gratefully acknowledge Peter van Dijk.  </p>
 <h1 id="rfc.appendix.C"><a href="#rfc.appendix.C">Appendix C.</a> ADVISORY Message Example</h1>
 <pre>
  0                   1                   2                   3
