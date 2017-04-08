@@ -301,9 +301,11 @@ RouterB#
 
         <section anchor="security" title="Security Considerations">
             <t>
-                This document uses UTF-8 encoding for the ADVISORY message.
-                Look at the security section here <xref target="I-D.ietf-idr-shutdown" />.
-                <xref target="UTR36">UNICODE TR36</xref> is important.
+                This specification uses UTF-8 encoding for certain fields of the ADVISORY message.
+                Implementers would do well to incorporate recommendations from <xref target="UTR36">UNICODE TR36</xref>.
+            </t>
+            <t>
+                Use of this protocol enhancement has the same security considerations as <xref target="I-D.ietf-idr-shutdown"/>.
             </t>                
         </section>
 <!--
